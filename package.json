@@ -9,7 +9,9 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@babel/eslint-parser": "^7.19.1",
     "@expo/webpack-config": "^0.17.2",
+    "eslint-plugin-react-native": "^4.0.0",
     "expo": "~47.0.12",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
@@ -19,7 +21,10 @@
     "react-native-web": "~0.18.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.21.0",
+    "eslint": "^8.34.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.32.2"
   },
   "private": true
 }
