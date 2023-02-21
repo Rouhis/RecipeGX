@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
-
+import { View } from 'react-native';
+import { Text } from 'react-native-magnus';
 
 const FeelLucky = () => {
     return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>FeelLucky!</Text>
+          <Text
+          fontSize="lg"
+          fontWeight='bold' >
+            FeelLucky!
+            </Text>
         </View>
       );
   };

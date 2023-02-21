@@ -4,18 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import FeelLucky from './views/FeelLucky';
+import Navigator from './navigators/Navigator';
 
+const App = () => {
+  return <Navigator />;
+};
 
-const Tab = createBottomTabNavigator();
-
-export default function App() {
-  return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Lucky" component={FeelLucky} />
-        <Tab.Screen name="Profile" component={Profile} />
-      </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
+export default App;
