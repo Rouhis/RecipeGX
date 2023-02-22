@@ -2,7 +2,7 @@ import {StatusBar} from 'expo-status-bar';
 import {StyleSheet, View} from 'react-native';
 import {Text, Input, Button} from 'react-native-magnus';
 
-const Login = () => {
+const signup = () => {
   return (
     <View style={login.container}>
       <Text
@@ -13,13 +13,13 @@ const Login = () => {
         color="red600"
         letterSpacing={2}
       >
-        Recipe GX
+        Register
       </Text>
       <Input
         mt={50}
         rounded={10}
         w={300}
-        placeholder="Email/Username"
+        placeholder="Username"
         p={10}
         focusBorderColor="red600"
         textAlign="center"
@@ -33,12 +33,15 @@ const Login = () => {
         focusBorderColor="blue700"
         textAlign="center"
       />
-      <Button mt={30} ml={135} px="xl" bg="red600" color="white">
-        Login
-      </Button>
-
-      <Button mt={25} ml={240} bg="black" color="red600">
-        Register
+      <Button
+        mt={30}
+        ml={135}
+        px="xl"
+        bg="red500"
+        color="white"
+        backgroundColor="red600"
+      >
+        sign up
       </Button>
     </View>
   );
@@ -53,4 +56,4 @@ const login = StyleSheet.create({
   },
 });
 
-export default Login;
+export default signup;
