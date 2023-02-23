@@ -1,8 +1,15 @@
-import {StatusBar} from 'expo-status-bar';
+import {useContext} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Text, Input, Button} from 'react-native-magnus';
+import {Text, Input, Button, PropTypes} from 'react-native-magnus';
+import {MainContext} from '../contexts/Maincontext';
 
-const Login = () => {
+const Login = ({navigation}) => {
+  const {setLoggedIn} = useContext(MainContext);
+
+  const login = async () => {
+    console.log('login button pressed');
+    setLoggedIn(true);
+  };
   return (
     <View style={login.container}>
       <Text
@@ -33,9 +40,15 @@ const Login = () => {
         focusBorderColor="blue700"
         textAlign="center"
       />
-      <Button mt={30} ml={135} px="xl" bg="red600" color="white">
-        Login
-      </Button>
+      <Button
+        title="Login"
+        mt={30}
+        ml={135}
+        px="xl"
+        bg="red600"
+        color="white"
+        onPress={login}
+      />
 
       <Button mt={25} ml={240} bg="black" color="red600">
         Register
@@ -52,5 +65,9 @@ const login = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+Login.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Login;
