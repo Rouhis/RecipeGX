@@ -1,8 +1,8 @@
-import * as React from "react";
-import { Text, Fab , Button ,Icon , Div} from "react-native-magnus";
-import { StyleSheet, SafeAreaView } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import List from "../components/List";
+import * as React from 'react';
+import {Text, Fab, Button, Icon, Div} from 'react-native-magnus';
+import {StyleSheet, SafeAreaView} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import List from '../components/List';
 const Home = () => {
   return (
     <>
@@ -34,9 +34,9 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
