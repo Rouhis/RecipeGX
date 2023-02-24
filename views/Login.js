@@ -1,17 +1,39 @@
-import {useContext} from 'react';
+import {useContext, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
-import {Text, Input, Button, PropTypes} from 'react-native-magnus';
-import {MainContext} from '../contexts/Maincontext';
+import {Text, Input, Button} from 'react-native-magnus';
+import PropTypes from 'prop-types';
+import {MainContext} from '../contexts/MainContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
-  const {setLoggedIn} = useContext(MainContext);
-
-  const login = async () => {
-    console.log('login button pressed');
-    setLoggedIn(true);
+  const {setIsLoggedIn} = useContext(MainContext);
+  console.log(setIsLoggedIn);
+  const logIn = async () => {
+    console.log('Login button pressed');
+    setIsLoggedIn(true);
+    try {
+      await AsyncStorage.setItem('userToken', 'abc123');
+    } catch (error) {
+      console.warn('error in storing token', error);
+    }
   };
+
+  const checkToken = async () => {
+    try {
+      const userToken = await AsyncStorage.getItem('userToken');
+      if (userToken === 'abc123') {
+        setIsLoggedIn(true);
+      }
+    } catch (error) {
+      console.log('no valid token available');
+    }
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
   return (
-    <View style={login.container}>
+    <View style={signin.container}>
       <Text
         fontSize={30}
         fontWeight="bold"
@@ -47,7 +69,7 @@ const Login = ({navigation}) => {
         px="xl"
         bg="red600"
         color="white"
-        onPress={login}
+        onPress={logIn}
       />
 
       <Button mt={25} ml={240} bg="black" color="red600">
@@ -57,7 +79,7 @@ const Login = ({navigation}) => {
   );
 };
 
-const login = StyleSheet.create({
+const signin = StyleSheet.create({
   container: {
     flex: 3,
     backgroundColor: 'black',

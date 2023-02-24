@@ -2,20 +2,32 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../views/Login';
 import Home from '../views/Home';
-import {MainContext} from '../contexts/Maincontext';
+import {MainContext} from '../contexts/MainContext';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FeelLucky from '../views/FeelLucky';
+import Profile from '../views/Profile';
+import LottieIcons from '../components/LottieIcons';
 import React, {useContext} from 'react';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const StackScreen = () => {
-  const [isLoggedIn] = useContext(MainContext);
+  const {isLoggedIn} = useContext(MainContext);
   return (
     <Stack.Navigator>
-      {isLoggedIn} ? (
-      <Stack.Screen name="Tabs" component={TabScreen} />
-      <Stack.Screen name="Home" component={Home} />
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen
+            name="Tabs"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Home" component={Home} />
+        </>
       ) : (
-      <Stack.Screen name="Login" component={Login} />)
+        <Stack.Screen name="Login" component={Login} />
+      )}
     </Stack.Navigator>
   );
 };
