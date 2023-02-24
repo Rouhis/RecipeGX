@@ -15,7 +15,7 @@ const Profile = ({navigation}) => {
   const loadAvatar = async () => {
     try {
       const avatarArray = await getFilesByTag('avatar_2725');
-//      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
+      //      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       setAvatar(avatarArray.pop().filename);
     } catch (error) {
       console.error('avatar fetch failed', error.message);
@@ -47,7 +47,7 @@ const Profile = ({navigation}) => {
           size={86}
           bg="green800"
           shadow={1}
-          //source={require('../assets/nalle.jpg')}
+          // source={require('../assets/nalle.jpg')}
           source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
