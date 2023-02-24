@@ -1,7 +1,27 @@
+import {async} from 'q';
+import {useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
+import {useTag} from '../hooks/ApiHooks';
+import {uploadsUrl} from '../utils/Variables';
 
 const Profile = () => {
+  const {getFilesByTag} = useTag();
+  const [avatar, setAvatar] = useState('');
+
+  const loadAvatar = async () => {
+    try {
+      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
+      setAvatar(avatarArray.pop().filename);
+    } catch (error) {
+      console.error('avatar fetch failed', error.message);
+    }
+  };
+
+  useEffect(() => {
+    loadAvatar();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <Div pt="xl">
@@ -24,6 +44,7 @@ const Profile = () => {
           bg="green800"
           shadow={1}
           source={require('../assets/nalle.jpg')}
+          // source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
         </Avatar>
@@ -36,9 +57,11 @@ const Profile = () => {
           letterSpacing={1}
           mt="lg"
           mb="lg"
+          //  {user.username}
         >
           ProfileName
         </Text>
+
         <Div p="lg" h={100}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Text
@@ -67,7 +90,7 @@ const Profile = () => {
             </Text>
           </Div>
         </Div>
-        <Div bg="grey" p="lg" h={380} roundedTop={35}>
+        <Div bg="gray700" p="lg" h={380} roundedTop={35}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Button
               mt="xs"
