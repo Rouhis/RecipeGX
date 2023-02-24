@@ -1,5 +1,18 @@
 import {useEffect, useState} from 'react';
-import {baseUrl} from '../utils/Variables';
+import {baseUrl, appId} from '../utils/Variables';
+
+const doFetch = async (url, options) => {
+  const response = await fetch(url, options);
+  const json = await response.json();
+  if (!response.ok) {
+    const message = json.error
+      ? `${json.message}: ${json.error}`
+      : json.message;
+    throw new Error(message || response.statusText);
+  }
+  return json;
+};
+
 
 const useMedia = () => {
   const [mediaArray, setMediaArray] = useState([]);
@@ -28,4 +41,15 @@ const useMedia = () => {
   return {mediaArray};
 };
 
-export {useMedia};
+const useTag = () => {
+  const getFilesByTag = async (tag) => {
+    try {
+      return await doFetch(baseUrl + 'tags/' + tag);
+    } catch (error) {
+      console.error('getFilesByTag, useTag', error);
+    }
+  };
+  return {getFilesByTag};
+};
+
+export {useMedia, useTag};

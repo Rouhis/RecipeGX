@@ -4,17 +4,19 @@ import {SafeAreaView} from 'react-native-web';
 import PropTypes from 'prop-types';
 
 const Recipe = ({navigation, route}) => {
-  console.log(route.params);
-  const {title, description, filename, time_added: timeAdded} = route.params;
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text>{title}</Text>
-      <Image style={styles.image} source={{uri: uploadsUrl + filename}} />
-      <Text>{timeAdded}</Text>
-      <Text>{description}</Text>
-    </SafeAreaView>
-  );
-};
+    console.log(route.params);
+    const {title, description, filename, time_added: timeAdded} = route.params;
+    return (
+     <Div><Text>{title}</Text>
+     <Text>{description}</Text></Div>
+
+    );
+  };
+
+
+ Recipe.propTypes = {
+    route: PropTypes.object,
+  };
 
 Recipe.propTypes = {
   route: PropTypes.object,
