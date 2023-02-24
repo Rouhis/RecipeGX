@@ -9,8 +9,7 @@ const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
   return (
     <TouchableOpacity onPress={() => {
-      //navigation.navigate('AddRecipe');
-      console.log(navigation)
+      navigation.navigate('Recipe',item);
     }}>
       <Div w={'100%'} flex={1} alignItems={'center'} justifyContent={'center'}>
         <Div

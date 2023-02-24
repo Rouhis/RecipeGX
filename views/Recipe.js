@@ -9,12 +9,9 @@ const Recipe = ({navigation, route}) => {
     console.log(route.params);
     const {title, description, filename, time_added: timeAdded} = route.params;
     return (
-      <SafeAreaView style={styles.container}>
-        <Text>{title}</Text>
-        <Image style={styles.image} source={{uri: uploadsUrl + filename}} />
-        <Text>{timeAdded}</Text>
-        <Text>{description}</Text>
-      </SafeAreaView>
+     <Div><Text>{title}</Text>
+     <Text>{description}</Text></Div>
+        
     );
   };
   
