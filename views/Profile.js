@@ -1,17 +1,21 @@
 import {async} from 'q';
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
 import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/Variables';
+import {MainContext} from '../contexts/MainContext';
+import PropTypes from 'prop-types';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('');
+  const {user, setUser} = useContext(MainContext);
 
   const loadAvatar = async () => {
     try {
-      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
+      const avatarArray = await getFilesByTag('avatar_2725');
+//      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       setAvatar(avatarArray.pop().filename);
     } catch (error) {
       console.error('avatar fetch failed', error.message);
@@ -43,8 +47,8 @@ const Profile = () => {
           size={86}
           bg="green800"
           shadow={1}
-          source={require('../assets/nalle.jpg')}
-          // source={{uri: uploadsUrl + avatar}}
+          //source={require('../assets/nalle.jpg')}
+          source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
         </Avatar>
@@ -158,5 +162,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+Profile.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Profile;
