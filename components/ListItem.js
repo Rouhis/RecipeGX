@@ -1,4 +1,4 @@
-import {View, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {Text, Image, Div} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
