@@ -9,5 +9,5 @@ import Navigator from './navigators/Navigator';
 const App = () => {
   return <Navigator />;
 };
-// lol
+
 export default App;
