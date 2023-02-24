@@ -3,13 +3,22 @@ import {Text, Fab, Button, Icon, Div} from 'react-native-magnus';
 import {StyleSheet, SafeAreaView} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import List from '../components/List';
-const Home = () => {
+import PropTypes from 'prop-types';
+
+const Home = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <List />
-        <Fab bg="blue600" h={50} w={50}>
-          <Button p="none" bg="transparent" justifyContent="flex-end">
+        <List navigation={navigation} />
+        <Fab bg="gray900" h={50} w={50}>
+          <Button
+            p="none"
+            bg="transparent"
+            justifyContent="flex-end"
+            onPress={() => {
+              navigation.navigate('AddRecipe');
+            }}
+          >
             <Div rounded="sm" bg="white" p="sm">
               <Text fontSize="md">Add a recipe</Text>
             </Div>
@@ -39,5 +48,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+Home.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default Home;

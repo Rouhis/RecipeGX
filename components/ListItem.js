@@ -1,34 +1,39 @@
-import {TouchableOpacity} from 'react-native';
+import * as React from "react";
+import {View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {Text, Image, Div} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
-import {pink} from '../utils/Colors';
 
-const ListItem = ({singleMedia}) => {
+
+const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => {
+      navigation.navigate('Recipe',item);
+    }}>
       <Div w={'100%'} flex={1} alignItems={'center'} justifyContent={'center'}>
         <Div
-          w={'80%'}
+          w={'90%'}
           flex={1}
           alignItems={'center'}
           justifyContent={'center'}
-          bg={pink}
+          bg='gray700'
           rounded="lg"
           m={10}
         >
           <Image
-            h={100}
-            w={200}
+            h={200}
+            w={325}
             m={10}
-            roundedTop={15}
-            roundedBottom={15}
+            rounded="lg"
             source={{uri: uploadsUrl + item.thumbnails?.w160}}
           ></Image>
 
-          <Text>{item.title}</Text>
-          <Text>{item.description}</Text>
+          <Text
+          color='gray100'
+          >{item.title}</Text>
+          <Text
+          color='gray100'>{item.description}</Text>
         </Div>
       </Div>
     </TouchableOpacity>
@@ -37,6 +42,7 @@ const ListItem = ({singleMedia}) => {
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,
+  navigation: PropTypes.object,
 };
 
 export default ListItem;

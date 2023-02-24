@@ -1,17 +1,18 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-magnus';
+import { Div } from 'react-native-magnus';
 
-const FeelLucky = ({navigation}) => {
+const AddRecipe = ({navigation, route}) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text
           fontSize="lg"
           fontWeight='bold' >
-            FeelLucky!
+            LOL!
             </Text>
-        </View>
+        </Div>
       );
   };
 
-  export default FeelLucky;
+  export default AddRecipe;
