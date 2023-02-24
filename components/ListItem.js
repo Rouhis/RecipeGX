@@ -32,8 +32,7 @@ const ListItem = ({singleMedia, navigation}) => {
           <Text
           color='gray100'
           >{item.title}</Text>
-          <Text
-          color='gray100'>{item.description}</Text>
+          <Text>{item.description}</Text>
         </Div>
       </Div>
     </TouchableOpacity>

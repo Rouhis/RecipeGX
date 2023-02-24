@@ -14,13 +14,35 @@ const Home = ({navigation}) => {
           <Button
             p="none"
             bg="transparent"
-            justifyContent="flex-end"
             onPress={() => {
               navigation.navigate('AddRecipe');
             }}
           >
             <Div rounded="sm" bg="white" p="sm">
               <Text fontSize="md">Add a recipe</Text>
+            </Div>
+            <Icon
+              name="pizza-slice"
+              fontFamily="FontAwesome5"
+              color="black"
+              h={50}
+              w={50}
+              rounded="circle"
+              ml="md"
+              bg="white"
+            />
+          </Button>
+          <Button
+            p="none"
+            bg="transparent"
+            justifyContent="flex-end"
+            alignItems="flex-end"
+            onPress={() => {
+              navigation.navigate('AddRecipe');
+            }}
+          >
+            <Div rounded="sm" bg="white" p="sm">
+              <Text fontSize="md">Add a asdsadasdasdsadrecipe</Text>
             </Div>
             <Icon
               name="pizza-slice"
