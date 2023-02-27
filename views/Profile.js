@@ -28,6 +28,7 @@ const Profile = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Div p={15}></Div>
       <Div pt="xl">
         <Button
           position="absolute"
@@ -44,7 +45,7 @@ const Profile = ({navigation}) => {
 
         <Avatar
           alignSelf="center"
-          size={86}
+          size={100}
           bg="green800"
           shadow={1}
           //source={require('../assets/nalle.jpg')}
@@ -66,7 +67,7 @@ const Profile = ({navigation}) => {
           ProfileName
         </Text>
 
-        <Div p="lg" h={100}>
+        <Div p="lg" h={"10%"}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Text
               fontSize="md"
@@ -94,7 +95,7 @@ const Profile = ({navigation}) => {
             </Text>
           </Div>
         </Div>
-        <Div bg="gray700" p="lg" h={380} roundedTop={35}>
+        <Div bg="gray700" p="lg" h={"70%"} roundedTop={35}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Button
               mt="xs"
