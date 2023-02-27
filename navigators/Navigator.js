@@ -5,7 +5,6 @@ import Home from '../views/Home';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
 import FeelLucky from '../views/FeelLucky';
-import {SafeAreaView} from 'react-native';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';
 

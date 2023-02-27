@@ -3,9 +3,12 @@ import { View } from 'react-native';
 import { Text } from 'react-native-magnus';
 import { Div } from 'react-native-magnus';
 
-const AddRecipe = ({navigation, route}) => {
+const AddRecipe = ({navigation}) => {
     return (
-        <Div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Div
+        flex={1}
+        alignItems={'center'}
+        >
           <Text
           fontSize="lg"
           fontWeight='bold' >
