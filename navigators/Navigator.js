@@ -1,29 +1,33 @@
 import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Login from '../views/Login';
 import Home from '../views/Home';
+import {MainContext} from '../contexts/MainContext';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
-import FeelLucky from '../views/FeelLucky';
-import {SafeAreaView} from 'react-native';
-import AddRecipe from '../views/AddRecipe';
-import Recipe from '../views/Recipe';
+import React, {useContext} from 'react';
 
-const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const StackScreen = () => {
+  const {isLoggedIn} = useContext(MainContext);
   return (
     <Stack.Navigator>
-      <>
-        <Stack.Screen
-          name="Tabs"
-          component={TabScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="Recipe" component={Recipe} />
-        <Stack.Screen name="AddRecipe" component={AddRecipe} />
-      </>
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen
+            name="Tabs"
+            component={TabScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Home" component={Home} />
+        </>
+      ) : (
+        <Stack.Screen name="Login" component={Login} />
+      )}
     </Stack.Navigator>
   );
 };

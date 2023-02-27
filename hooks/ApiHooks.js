@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {baseUrl} from '../utils/Variables';
+import {baseUrl, appId} from '../utils/Variables';
 
 const doFetch = async (url, options) => {
   const response = await fetch(url, options);

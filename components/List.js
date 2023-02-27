@@ -11,7 +11,7 @@ const List = ({navigation}) => {
       style={styles.center}
       data={mediaArray}
       keyExtractor={(item, index) => index.toString()}
-      renderItem={({item}) => <ListItem navigation={navigation} singleMedia={item} />}
+      renderItem={({item}) => <ListItem singleMedia={item} />}
     />
   );
 };
@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a202c',
   },
 });
-
 List.propTypes = {
   navigation: PropTypes.object,
 };
