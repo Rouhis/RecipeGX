@@ -3,6 +3,3 @@ const uploadsUrl = 'https://media.mw.metropolia.fi/wbma/uploads/';
 const appId = 'recipegxxdlololol';
 
 export {baseUrl, uploadsUrl, appId};
-
-const appId = 'recipegxxdlololol'
-export {baseUrl,uploadsUrl};
