@@ -7,7 +7,9 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
-import React, {useContext} from 'react';
+import FeelLucky from '../views/FeelLucky';
+import AddRecipe from '../views/AddRecipe';
+import Recipe from '../views/Recipe';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
