@@ -11,7 +11,7 @@ const Home = ({navigation}) => {
       <SafeAreaView style={styles.container}>
         <List navigation={navigation} />
 
-        <Fab bg="gray900" h={50} w={50}>
+        <Fab bg="red600" h={50} w={50}>
           <Button
             p="none"
             bg="transparent"

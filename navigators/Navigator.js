@@ -1,3 +1,4 @@
+import React, {useState, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../views/Login';
@@ -7,7 +8,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
-import FeelLucky from '../views/FeelLucky';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';
 
@@ -26,6 +26,8 @@ const StackScreen = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Recipe" component={Recipe}/>
+          <Stack.Screen name="AddRecipe" component={AddRecipe}/>
         </>
       ) : (
         <Stack.Screen name="Login" component={Login} />
