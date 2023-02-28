@@ -8,6 +8,7 @@ import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
 import React, {useContext} from 'react';
+import Register from '../views/Register';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,7 +27,10 @@ const StackScreen = () => {
           <Stack.Screen name="Home" component={Home} />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </>
       )}
     </Stack.Navigator>
   );
