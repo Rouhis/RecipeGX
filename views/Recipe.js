@@ -131,3 +131,5 @@ Recipe.propTypes = {
 };
 
 export default Recipe;
+
+export default Recipe;

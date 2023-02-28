@@ -10,11 +10,11 @@ const Home = ({navigation}) => {
     <>
       <SafeAreaView style={styles.container}>
         <List navigation={navigation} />
+        
         <Fab bg="gray900" h={50} w={50}>
           <Button
             p="none"
             bg="transparent"
-            justifyContent="flex-end"
             onPress={() => {
               navigation.navigate('AddRecipe');
             }}
