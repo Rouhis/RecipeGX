@@ -2,26 +2,22 @@ import {useContext, useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
 import {useTag, useUser} from '../hooks/ApiHooks';
-import {tempToken, uploadsUrl} from '../utils/Variables';
+import {uploadsUrl} from '../utils/Variables';
 import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
 import List from '../components/List';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
-  const {getUserByToken} = useUser();
-  const {user, setUser} = useContext(MainContext);
+  const {setIsLoggedIn, user, setUser} = useContext(MainContext);
   const [avatar, setAvatar] = useState('');
 
-
   const loadAvatar = async () => {
-    console.log(user);
     try {
-      const avatarArray = await getFilesByTag('avatar_2986');
+      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
 
-      //      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       setAvatar(avatarArray.pop().filename);
-      console.log('avatar info ' + avatar);
     } catch (error) {
       console.error('avatar fetch failed', error.message);
     }
@@ -70,9 +66,8 @@ const Profile = ({navigation}) => {
           letterSpacing={1}
           mt="lg"
           mb="lg"
-          //  {user.username}
         >
-          ProfileName
+          {user.username}
         </Text>
 
         <Div p="lg" h={'10%'}>
