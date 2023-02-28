@@ -26,6 +26,10 @@ const Profile = ({navigation}) => {
       console.error('avatar fetch failed', error.message);
     }
   };
+  const logout = async () => {
+    setIsLoggedIn(false);
+    await AsyncStorage.clear();
+  };
 
   useEffect(() => {
     loadAvatar();
@@ -43,7 +47,7 @@ const Profile = ({navigation}) => {
           w={50}
           top={10}
           right={10}
-          onPress={() => Alert.alert('Trying to logout :=)?')}
+          onPress={logout}
         >
           <Icon name="logout" color="black"></Icon>
         </Button>

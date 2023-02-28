@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#1a202c',
   },
 });
-
 List.propTypes = {
   navigation: PropTypes.object,
   myFilesOnly: PropTypes.bool,

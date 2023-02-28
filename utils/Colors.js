@@ -1,3 +1,3 @@
-const pink = '#DC185D'
+const pink = '#DC185D';
 
-export {pink}
+export {pink};

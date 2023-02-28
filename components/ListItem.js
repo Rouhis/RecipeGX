@@ -18,7 +18,7 @@ const ListItem = ({singleMedia, navigation}) => {
           flex={1}
           alignItems={'center'}
           justifyContent={'center'}
-          bg="gray700"
+          bg='gray700'
           rounded="lg"
           m={10}
         >
