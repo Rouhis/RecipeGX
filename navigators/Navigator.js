@@ -10,6 +10,7 @@ import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';
+import { black, brightred, red } from '../utils/Colors';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,14 +40,16 @@ const StackScreen = () => {
 const TabScreen = () => {
   return (
     <Tab.Navigator
+  
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           return <LottieIcons iconName={route.name} focused={focused} />;
         },
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarItemStyle: {padding: 4},
+        tabBarItemStyle: {padding: 4, backgroundColor: brightred,borderTopColor: black, borderTopWidth: 2,},
       })}
+      
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FeelLucky" component={FeelLucky} />

@@ -4,14 +4,14 @@ import {StyleSheet, SafeAreaView} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import List from '../components/List';
 import PropTypes from 'prop-types';
-
+import { dark, red } from '../utils/Colors';
 const Home = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
         <List navigation={navigation} />
 
-        <Fab bg="red600" h={50} w={50}>
+        <Fab bg='red' h={50} w={50}>
           <Button
             p="none"
             bg="transparent"
@@ -19,8 +19,8 @@ const Home = ({navigation}) => {
               navigation.navigate('AddRecipe');
             }}
           >
-            <Div rounded="sm" bg="white" p="sm">
-              <Text fontSize="md">Add a recipe</Text>
+            <Div rounded="sm" bg={dark} p="sm">
+              <Text fontSize="md" color='white'>Add a recipe</Text>
             </Div>
             <Icon
               name="pizza-slice"
@@ -30,7 +30,7 @@ const Home = ({navigation}) => {
               w={50}
               rounded="circle"
               ml="md"
-              bg="white"
+              bg='red'
             />
           </Button>
         </Fab>

@@ -3,6 +3,7 @@ import {useMedia, useTag} from '../hooks/ApiHooks';
 import ListItem from './ListItem';
 import PropTypes from 'prop-types';
 import {Div} from 'react-native-magnus';
+import { black } from '../utils/Colors';
 
 const List = ({navigation, myFilesOnly = false}) => {
   const {mediaArray} = useMedia(myFilesOnly);
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   center: {
     width: '100%',
     flex: 1,
-    backgroundColor: '#1a202c',
+    backgroundColor: black,
   },
 });
 List.propTypes = {

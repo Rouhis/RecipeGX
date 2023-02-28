@@ -3,6 +3,7 @@ import {View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {Text, Image, Div} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
+import { brightred, dark, palecolor, red } from '../utils/Colors';
 
 const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
@@ -18,7 +19,7 @@ const ListItem = ({singleMedia, navigation}) => {
           flex={1}
           alignItems={'center'}
           justifyContent={'center'}
-          bg="gray700"
+          bg={dark}
           rounded="lg"
           m={10}
         >
@@ -31,10 +32,12 @@ const ListItem = ({singleMedia, navigation}) => {
           ></Image>
 
           <Text
-          color='gray100'
+          fontSize={20}
+          color='red'
           >{item.title}</Text>
           <Text
-          color='gray100'>{item.description}</Text>
+          color="gray100"
+          >{item.description}</Text>
           <Text>{item.description}</Text>
 
         </Div>

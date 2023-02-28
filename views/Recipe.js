@@ -13,6 +13,7 @@ import {Div} from 'react-native-magnus';
 import {SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 import List from '../components/List';
+import {black, dark, gray} from '../utils/Colors';
 
 const Recipe = ({navigation, route}) => {
   console.log(route.params);
@@ -20,18 +21,15 @@ const Recipe = ({navigation, route}) => {
   const dropdownSteps = React.createRef();
   const {title, description, filename, time_added: timeAdded} = route.params;
   return (
-    <ScrollDiv nestedScrollEnabled={true}>
-      <Div>
-        <Div bg="gray600" h={'100%'} roundedTop={35}>
-          <Image
-            source={{uri: uploadsUrl + filename}}
-            h={250}
-            roundedTop={35}
-          ></Image>
 
+    <ScrollDiv nestedScrollEnabled={true} h={'100%'} bg={black} >
+          <Div flex={1} alignItems={'center'} marginTop={10}>
+          <Div h={250} w={350}>
+          <Image source={{uri: uploadsUrl + filename}} h={'100%'} w={'100%'}></Image>
+          </Div>
+          </Div>
           <Div
-            bg="gray700"
-            roundedTop={35}
+            bg={black}
             h={'75%'}
             style={{
               position: 'relative',
@@ -45,7 +43,7 @@ const Recipe = ({navigation, route}) => {
               textAlign="center"
               fontWeight="bold"
               textTransform="uppercase"
-              color="red400"
+              color="red"
               letterSpacing={1}
               mt="lg"
               mb="lg"
@@ -53,19 +51,21 @@ const Recipe = ({navigation, route}) => {
               {title}
             </Text>
             <ScrollDiv h={260}>
-              <Text fontSize="lg" textAlign="center">
-                {description}
-              </Text>
+              <Div >
+                <Text fontSize="lg" textAlign="center" color="white">
+                  {description}
+                </Text>
+              </Div>
             </ScrollDiv>
 
-            <Div bg="gray500" p="lg" h={103} w={'100%'} roundedTop={35}>
+            <Div bg={dark} p="lg" h={60} w={'100%'} rounded={35}>
               <Div row flexWrap="wrap" justifyContent="space-evenly">
                 <Button
                   mt="xs"
                   p="xs"
                   bg="transparent"
                   borderBottomColor="green500"
-                  color="red400"
+                  color="red"
                   underlayColor="red100"
                   onPress={() => dropdownSteps.current.open()}
                 >
@@ -76,7 +76,7 @@ const Recipe = ({navigation, route}) => {
                   p="xs"
                   bg="transparent"
                   borderBottomColor="green500"
-                  color="red400"
+                  color="red"
                   underlayColor="red100"
                   onPress={() => dropdownComments.current.open()}
                 >
@@ -120,8 +120,7 @@ const Recipe = ({navigation, route}) => {
               </Div>
             </Dropdown>
           </Div>
-        </Div>
-      </Div>
+      
     </ScrollDiv>
   );
 };
@@ -131,4 +130,3 @@ Recipe.propTypes = {
 };
 
 export default Recipe;
-
