@@ -1,88 +1,59 @@
 import {useContext, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Text, Input, Button} from 'react-native-magnus';
-import PropTypes from 'prop-types';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  Keyboard,
+  KeyboardAvoidingView,
+} from 'react-native';
+import {useUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
+import PropTypes from 'prop-types';
+import LoginForm from '../components/LoginForm';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
-  const {setIsLoggedIn} = useContext(MainContext);
-  console.log(setIsLoggedIn);
-  const logIn = async () => {
-    console.log('Login button pressed');
-    setIsLoggedIn(true);
-    try {
-      await AsyncStorage.setItem('userToken', 'abc123');
-    } catch (error) {
-      console.warn('error in storing token', error);
-    }
-  };
+  const {setIsLoggedIn, setUser} = useContext(MainContext);
+  const {getUserByToken} = useUser();
 
   const checkToken = async () => {
     try {
       const userToken = await AsyncStorage.getItem('userToken');
-      if (userToken === 'abc123') {
-        setIsLoggedIn(true);
-      }
+      // if no token available, do nothing
+      if (userToken === null) return;
+      const userData = await getUserByToken(userToken);
+      console.log('checkToken', userData);
+      setUser(userData);
+      setIsLoggedIn(true);
     } catch (error) {
-      console.log('no valid token available');
+      console.error('checkToken', error);
     }
   };
 
   useEffect(() => {
     checkToken();
   }, []);
-  return (
-    <View style={signin.container}>
-      <Text
-        fontSize={30}
-        fontWeight="bold"
-        textTransform="uppercase"
-        fontFamily="sans-serif-condensed"
-        color="red600"
-        letterSpacing={2}
-      >
-        Recipe GX
-      </Text>
-      <Input
-        mt={50}
-        rounded={10}
-        w={300}
-        placeholder="Email/Username"
-        p={10}
-        focusBorderColor="red600"
-        textAlign="center"
-      />
-      <Input
-        mt={25}
-        rounded={10}
-        w={300}
-        placeholder="Password"
-        p={10}
-        focusBorderColor="blue700"
-        textAlign="center"
-      />
-      <Button
-        title="Login"
-        mt={30}
-        ml={135}
-        px="xl"
-        bg="red600"
-        color="white"
-        onPress={logIn}
-      />
 
-      <Button mt={25} ml={240} bg="black" color="red600">
-        Register
-      </Button>
-    </View>
+  return (
+    <TouchableOpacity
+      onPress={() => Keyboard.dismiss()}
+      style={{flex: 1}}
+      activeOpacity={1}
+    >
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+      >
+        <LoginForm />
+      </KeyboardAvoidingView>
+    </TouchableOpacity>
   );
 };
 
-const signin = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
-    flex: 3,
-    backgroundColor: 'black',
+    flex: 1,
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },

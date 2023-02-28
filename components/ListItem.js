@@ -1,23 +1,24 @@
-import * as React from "react";
+import * as React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import {Text, Image, Div} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
 
-
 const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
   return (
-    <TouchableOpacity onPress={() => {
-      navigation.navigate('Recipe',item);
-    }}>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Recipe', item);
+      }}
+    >
       <Div w={'100%'} flex={1} alignItems={'center'} justifyContent={'center'}>
         <Div
           w={'90%'}
           flex={1}
           alignItems={'center'}
           justifyContent={'center'}
-          bg='gray700'
+          bg="gray700"
           rounded="lg"
           m={10}
         >
@@ -29,11 +30,8 @@ const ListItem = ({singleMedia, navigation}) => {
             source={{uri: uploadsUrl + item.thumbnails?.w160}}
           ></Image>
 
-          <Text
-          color='gray100'
-          >{item.title}</Text>
-          <Text
-          color='gray100'>{item.description}</Text>
+          <Text color="gray100">{item.title}</Text>
+          <Text color="gray100">{item.description}</Text>
         </Div>
       </Div>
     </TouchableOpacity>

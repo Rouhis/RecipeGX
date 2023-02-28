@@ -1,4 +1,3 @@
-import {async} from 'q';
 import {useContext, useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
@@ -6,11 +5,13 @@ import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/Variables';
 import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
   const [avatar, setAvatar] = useState('');
   const {user, setUser} = useContext(MainContext);
+  const {setIsLoggedIn} = useContext(MainContext);
 
   const loadAvatar = async () => {
     try {
@@ -20,6 +21,10 @@ const Profile = ({navigation}) => {
     } catch (error) {
       console.error('avatar fetch failed', error.message);
     }
+  };
+  const logout = async () => {
+    setIsLoggedIn(false);
+    await AsyncStorage.clear();
   };
 
   useEffect(() => {
@@ -37,7 +42,7 @@ const Profile = ({navigation}) => {
           w={50}
           top={10}
           right={10}
-          onPress={() => Alert.alert('Trying to logout :=)?')}
+          onPress={logout}
         >
           <Icon name="logout" color="black"></Icon>
         </Button>
