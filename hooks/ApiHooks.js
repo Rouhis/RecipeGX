@@ -1,4 +1,5 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
+import {MainContext} from '../contexts/MainContext';
 import {baseUrl, appId} from '../utils/Variables';
 
 const doFetch = async (url, options) => {
@@ -13,14 +14,17 @@ const doFetch = async (url, options) => {
   return json;
 };
 
-
-const useMedia = () => {
+const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
+  const {user} = useContext(MainContext);
 
   const loadMedia = async () => {
     try {
-      const response = await fetch(baseUrl + 'tags/' + appId );
-      const json = await response.json();
+      const response = await fetch(baseUrl + 'tags/' + appId);
+      let json = await response.json();
+      if (myFilesOnly) {
+        // json = json.filter((file) => file.user_id === user.user_id);
+      }
       const media = await Promise.all(
         json.map(async (file) => {
           const fileResponse = await fetch(baseUrl + 'media/' + file.file_id);
@@ -34,27 +38,43 @@ const useMedia = () => {
     }
   };
 
+  const postMedia = async (fileData, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'multipart/form-data',
+      },
+      body: fileData,
+    };
+    try {
+      return await doFetch(baseUrl + 'media', options);
+    } catch (error) {
+      throw new Error('postUpload: ' + error.message);
+    }
+  };
+
   useEffect(() => {
     loadMedia();
   }, []);
 
-  return {mediaArray};
+  return {mediaArray, postMedia};
 };
 
-const postMedia = async (fileData, token) => {
-  const options = {
-    method: 'post',
-    headers: {
-      'x-access-token': token,
-      'Content-Type': 'multipart/form-data',
-    },
-    body: fileData,
+const useUser = () => {
+  const getUserByToken = async (token) => {
+    // call https://media.mw.metropolia.fi/wbma/docs/#api-User-CheckUserName
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    try {
+      return await doFetch(baseUrl + 'users/user', options);
+    } catch (error) {
+      throw new Error('checkUser: ' + error.message);
+    }
   };
-  try {
-    return await doFetch(baseUrl + 'media', options);
-  } catch (error) {
-    throw new Error('postMedia: ' + error.message);
-  }
+  return {getUserByToken};
 };
 
 const useTag = () => {
@@ -65,7 +85,24 @@ const useTag = () => {
       console.error('getFilesByTag, useTag', error);
     }
   };
-  return {getFilesByTag};
+
+  const postTag = async (data, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'tags', options);
+    } catch (error) {
+      throw new Error('postTag: ' + error.message);
+    }
+  };
+
+  return {getFilesByTag, postTag};
 };
 
-export {useMedia, useTag, postMedia};
+export {useMedia, useUser, useTag};

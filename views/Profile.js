@@ -1,22 +1,27 @@
-import {async} from 'q';
 import {useContext, useEffect, useState} from 'react';
 import {Alert, SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
-import {useTag} from '../hooks/ApiHooks';
-import {uploadsUrl} from '../utils/Variables';
+import {useTag, useUser} from '../hooks/ApiHooks';
+import {tempToken, uploadsUrl} from '../utils/Variables';
 import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
+import List from '../components/List';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
-  const [avatar, setAvatar] = useState('');
+  const {getUserByToken} = useUser();
   const {user, setUser} = useContext(MainContext);
+  const [avatar, setAvatar] = useState('');
+
 
   const loadAvatar = async () => {
+    console.log(user);
     try {
-      const avatarArray = await getFilesByTag('avatar_2725');
-//      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
+      const avatarArray = await getFilesByTag('avatar_2986');
+
+      //      const avatarArray = await getFilesByTag('avatar_' + user.user_id);
       setAvatar(avatarArray.pop().filename);
+      console.log('avatar info ' + avatar);
     } catch (error) {
       console.error('avatar fetch failed', error.message);
     }
@@ -48,7 +53,6 @@ const Profile = ({navigation}) => {
           size={100}
           bg="green800"
           shadow={1}
-          //source={require('../assets/nalle.jpg')}
           source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
@@ -67,7 +71,7 @@ const Profile = ({navigation}) => {
           ProfileName
         </Text>
 
-        <Div p="lg" h={"10%"}>
+        <Div p="lg" h={'10%'}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Text
               fontSize="md"
@@ -95,12 +99,11 @@ const Profile = ({navigation}) => {
             </Text>
           </Div>
         </Div>
-        <Div bg="gray700" p="lg" h={"70%"} roundedTop={35}>
+        <Div bg="gray700" p="lg" h={'70%'} roundedTop={35}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Button
               mt="xs"
-              px="xs"
-              py="xs"
+              p="xs"
               bg="transparent"
               borderBottomColor="green500"
               color="red400"
@@ -110,8 +113,7 @@ const Profile = ({navigation}) => {
             </Button>
             <Button
               mt="xs"
-              px="xs"
-              py="xs"
+              p="xs"
               bg="transparent"
               borderBottomColor="green500"
               color="red400"
@@ -120,6 +122,7 @@ const Profile = ({navigation}) => {
               Favourites
             </Button>
           </Div>
+          <List navigation={navigation} myFilesOnly={true}></List>
         </Div>
         <Fab bg="red600" h={50} w={50}>
           <Button p="none" bg="transparent" justifyContent="flex-end">
