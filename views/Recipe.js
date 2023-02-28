@@ -62,8 +62,7 @@ const Recipe = ({navigation, route}) => {
               <Div row flexWrap="wrap" justifyContent="space-evenly">
                 <Button
                   mt="xs"
-                  px="xs"
-                  py="xs"
+                  p="xs"
                   bg="transparent"
                   borderBottomColor="green500"
                   color="red400"
@@ -74,8 +73,7 @@ const Recipe = ({navigation, route}) => {
                 </Button>
                 <Button
                   mt="xs"
-                  px="xs"
-                  py="xs"
+                  p="xs"
                   bg="transparent"
                   borderBottomColor="green500"
                   color="red400"
@@ -114,7 +112,7 @@ const Recipe = ({navigation, route}) => {
                   style={{height: '98%'}}
                 ></ScrollView>
                 <Input
-                  placeholder="Comment"
+                  placeholder="Write your comment"
                   p={10}
                   focusBorderColor="red400"
                   style={{position: 'absolute', bottom: 20}}
