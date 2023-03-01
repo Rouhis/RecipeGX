@@ -8,7 +8,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
-import React, {useContext} from 'react';
 import Register from '../views/Register';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';

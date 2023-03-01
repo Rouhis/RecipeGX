@@ -14,11 +14,6 @@ const ListItem = ({singleMedia, navigation}) => {
         navigation.navigate('Recipe', item);
       }}
     >
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('Recipe', item);
-      }}
-    >
       <Div w={'100%'} flex={1} alignItems={'center'} justifyContent={'center'}>
         <Div
           w={'90%'}
@@ -51,6 +46,7 @@ const ListItem = ({singleMedia, navigation}) => {
     </TouchableOpacity>
   );
 };
+
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,

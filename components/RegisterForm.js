@@ -31,7 +31,6 @@ const RegisterForm = () => {
         fontSize={25}
         fontWeight="bold"
         textTransform="uppercase"
-        fontFamily="sans-serif-condensed"
         color="red600"
         ml={20}
         letterSpacing={2}

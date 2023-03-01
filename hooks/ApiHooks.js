@@ -113,21 +113,6 @@ const useMedia = () => {
   return {mediaArray, postMedia};
 };
 
-const useUser = () => {
-  const getUserByToken = async (token) => {
-    // call https://media.mw.metropolia.fi/wbma/docs/#api-User-CheckUserName
-    const options = {
-      method: 'GET',
-      headers: {'x-access-token': token},
-    };
-    try {
-      return await doFetch(baseUrl + 'users/user', options);
-    } catch (error) {
-      throw new Error('checkUser: ' + error.message);
-    }
-  };
-  return {getUserByToken};
-};
 
 const useTag = () => {
   const getFilesByTag = async (tag) => {

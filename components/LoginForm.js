@@ -40,7 +40,6 @@ const LoginForm = () => {
         fontSize={30}
         fontWeight="bold"
         textTransform="uppercase"
-        fontFamily="sans-serif-condensed"
         color="red600"
         ml={80}
         letterSpacing={2}
