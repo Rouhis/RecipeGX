@@ -125,6 +125,9 @@ const Recipe = ({navigation, route}) => {
   );
 };
 
+
+
+
 Recipe.propTypes = {
   route: PropTypes.object,
 };

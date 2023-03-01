@@ -8,6 +8,8 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
+import React, {useContext} from 'react';
+import Register from '../views/Register';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';
 import { black, brightred, red } from '../utils/Colors';
@@ -31,7 +33,10 @@ const StackScreen = () => {
           <Stack.Screen name="AddRecipe" component={AddRecipe}/>
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+        </>
       )}
     </Stack.Navigator>
   );

@@ -5,12 +5,14 @@ import {useTag, useUser} from '../hooks/ApiHooks';
 import {tempToken, uploadsUrl} from '../utils/Variables';
 import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
   const {getUserByToken} = useUser();
   const {user, setUser} = useContext(MainContext);
+  const {setIsLoggedIn} = useContext(MainContext);
   const [avatar, setAvatar] = useState('');
 
 
@@ -24,6 +26,10 @@ const Profile = ({navigation}) => {
     } catch (error) {
       console.error('avatar fetch failed', error.message);
     }
+  };
+  const logout = async () => {
+    setIsLoggedIn(false);
+    await AsyncStorage.clear();
   };
 
   useEffect(() => {
@@ -42,7 +48,7 @@ const Profile = ({navigation}) => {
           w={50}
           top={10}
           right={10}
-          onPress={() => Alert.alert('Trying to logout :=)?')}
+          onPress={logout}
         >
           <Icon name="logout" color="black"></Icon>
         </Button>
