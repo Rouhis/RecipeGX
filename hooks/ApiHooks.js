@@ -75,9 +75,9 @@ const useMedia = () => {
     try {
       const response = await fetch(baseUrl + 'tags/' + appId);
       let json = await response.json();
-      if (myFilesOnly) {
+      /*if (myFilesOnly) {
         // json = json.filter((file) => file.user_id === user.user_id);
-      }
+      }*/
       const media = await Promise.all(
         json.map(async (file) => {
           const fileResponse = await fetch(baseUrl + 'media/' + file.file_id);
