@@ -126,10 +126,23 @@ const Recipe = ({navigation, route}) => {
 };
 
 
+=========
+  const {title, description, filename, time_added: timeAdded} = route.params;
+  return (
+    <Div>
+      <Text>{title}</Text>
+      <Text>{description}</Text>
+    </Div>
+  );
+};
 
+Recipe.propTypes = {
+  route: PropTypes.object,
+};
 
 Recipe.propTypes = {
   route: PropTypes.object,
 };
 
 export default Recipe;
+>>>>>>>>> Temporary merge branch 2

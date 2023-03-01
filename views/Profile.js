@@ -12,7 +12,7 @@ const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
   const {getUserByToken} = useUser();
   const {user, setUser} = useContext(MainContext);
-  const {setIsLoggedIn} = useContext(MainContext);
+
   const [avatar, setAvatar] = useState('');
 
 

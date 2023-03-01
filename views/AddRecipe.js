@@ -101,7 +101,7 @@ const AddRecipe = ({navigation, route}) => {
           onPress: () => {
             console.log('OK Pressed');
             // update 'update' state in context
-           // setUpdate(!update);
+            // setUpdate(!update);
             // reset form
             // reset();
             // TODO: navigate to home
@@ -119,14 +119,13 @@ const AddRecipe = ({navigation, route}) => {
   return (
     <ScrollDiv nestedScrollEnabled={true}>
       <Div>
-        <Div bg="gray600" h={'100%'} roundedTop={35}>
+        <Div bg="gray600" h={'100%'}>
           <TouchableOpacity onPress={pickFile}>
             <Image
               source={{
                 uri: mediafile.uri || 'https://placekitten.com/g/200/300',
               }}
               h={250}
-              roundedTop={35}
             ></Image>
           </TouchableOpacity>
           <Div
@@ -169,13 +168,11 @@ const AddRecipe = ({navigation, route}) => {
                   onChangeText={onChange}
                   value={value}
                   errorMessage={errors.title && errors.title.message}
-                >
-                  Tähä title
-                </Input>
+                ></Input>
               )}
               name="title"
             />
-            <ScrollDiv h={260}>
+            <ScrollDiv>
               <Controller
                 control={control}
                 rules={{
@@ -190,6 +187,7 @@ const AddRecipe = ({navigation, route}) => {
                     color="red300"
                     placeholder="add description"
                     w={250}
+                    h={250}
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
@@ -200,9 +198,6 @@ const AddRecipe = ({navigation, route}) => {
                 )}
                 name="description"
               />
-              <Text fontSize="lg" textAlign="center">
-                tähä desc
-              </Text>
             </ScrollDiv>
 
             <Div bg="gray500" p="lg" h={103} w={'100%'} roundedTop={35}>
@@ -219,13 +214,21 @@ const AddRecipe = ({navigation, route}) => {
                   Steps
                 </Button>
                 <Button
+                  mt="xs"
+                  p="xs"
+                  bg="transparent"
+                  borderBottomColor="green500"
+                  color="red400"
+                  underlayColor="red100"
                   loading={loading}
                   disabled={
                     !mediafile.uri || errors.title || errors.description
                   }
                   title="Upload"
                   onPress={handleSubmit(uploadFile)}
-                />
+                >
+                  Upload
+                </Button>
               </Div>
             </Div>
             <Dropdown
@@ -239,30 +242,6 @@ const AddRecipe = ({navigation, route}) => {
                 </Text>
               }
             ></Dropdown>
-            <Dropdown
-              ref={dropdownComments}
-              w="100%"
-              h="100%"
-              roundedTop={35}
-              title={
-                <Text mx="lg" color="red400" textAlign="center">
-                  Comments
-                </Text>
-              }
-            >
-              <Div>
-                <ScrollView
-                  nestedScrollEnabled={true}
-                  style={{height: '98%'}}
-                ></ScrollView>
-                <Input
-                  placeholder="Write your comment"
-                  p={10}
-                  focusBorderColor="red400"
-                  style={{position: 'absolute', bottom: 20}}
-                ></Input>
-              </Div>
-            </Dropdown>
           </Div>
         </Div>
       </Div>

@@ -67,6 +67,7 @@ const useUser = () => {
 };
 
 const useMedia = () => {
+
   const [mediaArray, setMediaArray] = useState([]);
   const {user} = useContext(MainContext);
 
