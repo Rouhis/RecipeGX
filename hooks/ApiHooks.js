@@ -36,14 +36,14 @@ const useAuthentication = () => {
 };
 
 const useComment = () => {
-  const postComment = async (data, token) => {
+  const postComment = async (fileId, data, token) => {
     const options = {
       method: 'post',
       headers: {
         'x-access-token': token,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({file_id: fileId, comment: data}),
     };
     try {
       return await doFetch(baseUrl + 'comments', options);
@@ -51,6 +51,16 @@ const useComment = () => {
       throw new Error('postComment: ' + error.message);
     }
   };
+
+  const getCommentsByFileId = async (fileId) => {
+    try {
+      return await doFetch(baseUrl + 'comments/file/' + fileId);
+    } catch (error) {
+      throw new Error('getComments error, ' + error.message);
+    }
+  };
+
+  return {postComment, getCommentsByFileId};
 };
 
 // https://media.mw.metropolia.fi/wbma/docs/#api-User
@@ -160,4 +170,4 @@ const useTag = () => {
   return {getFilesByTag, postTag};
 };
 
-export {useMedia, useTag, useAuthentication, useUser};
+export {useMedia, useTag, useAuthentication, useUser, useComment};
