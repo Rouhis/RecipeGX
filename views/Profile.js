@@ -7,7 +7,7 @@ import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
