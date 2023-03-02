@@ -6,6 +6,7 @@ import List from '../components/List';
 import PropTypes from 'prop-types';
 import { dark, red } from '../utils/Colors';
 const Home = ({navigation}) => {
+  console.log("perekreklreklreklrpeklrpe");
   return (
     <>
       <SafeAreaView style={styles.container}>
