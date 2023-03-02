@@ -44,7 +44,7 @@ const StackScreen = () => {
 const TabScreen = () => {
   return (
     <Tab.Navigator
-  
+
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           return <LottieIcons iconName={route.name} focused={focused} />;
@@ -53,7 +53,7 @@ const TabScreen = () => {
         tabBarShowLabel: false,
         tabBarItemStyle: {padding: 4, backgroundColor: brightred,borderTopColor: black, borderTopWidth: 2,},
       })}
-      
+
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FeelLucky" component={FeelLucky} />

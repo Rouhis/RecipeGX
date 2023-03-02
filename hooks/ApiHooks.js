@@ -35,6 +35,24 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
+const useComment = () => {
+  const postComment = async (data, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'comments', options);
+    } catch (error) {
+      throw new Error('postComment: ' + error.message);
+    }
+  };
+};
+
 // https://media.mw.metropolia.fi/wbma/docs/#api-User
 const useUser = () => {
   const getUserByToken = async (token) => {
@@ -66,8 +84,7 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-const useMedia = () => {
-
+const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {user} = useContext(MainContext);
 
@@ -75,9 +92,9 @@ const useMedia = () => {
     try {
       const response = await fetch(baseUrl + 'tags/' + appId);
       let json = await response.json();
-      /*if (myFilesOnly) {
-        // json = json.filter((file) => file.user_id === user.user_id);
-      }*/
+      if (myFilesOnly) {
+        json = json.filter((file) => file.user_id === user.user_id);
+      }
       const media = await Promise.all(
         json.map(async (file) => {
           const fileResponse = await fetch(baseUrl + 'media/' + file.file_id);
@@ -114,6 +131,21 @@ const useMedia = () => {
   return {mediaArray, postMedia};
 };
 
+const useUser = () => {
+  const getUserByToken = async (token) => {
+    // call https://media.mw.metropolia.fi/wbma/docs/#api-User-CheckUserName
+    const options = {
+      method: 'GET',
+      headers: {'x-access-token': token},
+    };
+    try {
+      return await doFetch(baseUrl + 'users/user', options);
+    } catch (error) {
+      throw new Error('checkUser: ' + error.message);
+    }
+  };
+  return {getUserByToken};
+};
 
 const useTag = () => {
   const getFilesByTag = async (tag) => {
@@ -143,4 +175,4 @@ const useTag = () => {
   return {getFilesByTag, postTag};
 };
 
-export {useMedia, useUser, useTag, useAuthentication};
+export {useMedia, useTag, useAuthentication, useUser};
