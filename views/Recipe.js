@@ -13,12 +13,31 @@ import {Div} from 'react-native-magnus';
 import {SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 import List from '../components/List';
+import {useForm} from 'react-hook-form';
+import {async} from 'q';
 
 const Recipe = ({navigation, route}) => {
   console.log(route.params);
   const dropdownComments = React.createRef();
   const dropdownSteps = React.createRef();
-  const {title, description, filename, time_added: timeAdded} = route.params;
+  const {
+    title,
+    description,
+    file_id,
+    filename,
+    time_added: timeAdded,
+  } = route.params;
+  const {handleSubmit} = useForm({
+    defaultValues: {title: '', description: ''},
+    mode: 'onChange',
+  });
+
+  const uploadComment = async () => {
+    const commentData = {
+      file_id: file_id,
+    };
+  };
+
   return (
     <ScrollDiv nestedScrollEnabled={true}>
       <Div>
@@ -51,6 +70,7 @@ const Recipe = ({navigation, route}) => {
               mb="lg"
             >
               {title}
+
             </Text>
             <ScrollDiv h={260}>
               <Text fontSize="lg" textAlign="center">
@@ -131,4 +151,3 @@ Recipe.propTypes = {
 };
 
 export default Recipe;
-

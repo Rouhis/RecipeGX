@@ -35,6 +35,24 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
+const useComment = () => {
+  const postComment = async (data, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      return await doFetch(baseUrl + 'comments', options);
+    } catch (error) {
+      throw new Error('postComment: ' + error.message);
+    }
+  };
+};
+
 // https://media.mw.metropolia.fi/wbma/docs/#api-User
 const useUser = () => {
   const getUserByToken = async (token) => {
@@ -66,7 +84,6 @@ const useUser = () => {
   return {getUserByToken, postUser};
 };
 
-
 const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {user} = useContext(MainContext);
@@ -76,7 +93,7 @@ const useMedia = (myFilesOnly) => {
       const response = await fetch(baseUrl + 'tags/' + appId);
       let json = await response.json();
       if (myFilesOnly) {
-         json = json.filter((file) => file.user_id === user.user_id);
+        json = json.filter((file) => file.user_id === user.user_id);
       }
       const media = await Promise.all(
         json.map(async (file) => {
@@ -113,8 +130,6 @@ const useMedia = (myFilesOnly) => {
 
   return {mediaArray, postMedia};
 };
-
-
 
 const useTag = () => {
   const getFilesByTag = async (tag) => {

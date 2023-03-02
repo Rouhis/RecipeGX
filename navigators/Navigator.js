@@ -8,6 +8,8 @@ import FeelLucky from '../views/FeelLucky';
 import Profile from '../views/Profile';
 import LottieIcons from '../components/LottieIcons';
 import React, {useContext} from 'react';
+import AddRecipe from '../views/AddRecipe';
+import Recipe from '../views/Recipe';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -24,6 +26,8 @@ const StackScreen = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Recipe" component={Recipe} />
+          <Stack.Screen name="AddRecipe" component={AddRecipe} />
         </>
       ) : (
         <Stack.Screen name="Login" component={Login} />
