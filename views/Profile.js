@@ -7,6 +7,7 @@ import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
+import { black, dark } from '../utils/Colors';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
@@ -39,7 +40,7 @@ const Profile = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Div p={15}></Div>
-      <Div pt="xl">
+      <Div pt="xl" bg={black}>
         <Button
           position="absolute"
           bg="transparent"
@@ -50,7 +51,7 @@ const Profile = ({navigation}) => {
           right={10}
           onPress={logout}
         >
-          <Icon name="logout" color="black"></Icon>
+          <Icon name="logout" color="red"></Icon>
         </Button>
 
         <Avatar
@@ -68,7 +69,7 @@ const Profile = ({navigation}) => {
           textAlign="center"
           fontWeight="bold"
           textTransform="uppercase"
-          color="red400"
+          color="red"
           letterSpacing={1}
           mt="lg"
           mb="lg"
@@ -77,14 +78,14 @@ const Profile = ({navigation}) => {
           ProfileName
         </Text>
 
-        <Div p="lg" h={'10%'}>
+        <Div p="lg" h={'10%'} bg={black}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Text
               fontSize="md"
               textAlign="center"
               fontWeight="bold"
               textTransform="uppercase"
-              color="red400"
+              color="red"
               letterSpacing={1}
               mt="lg"
               mb="lg"
@@ -96,7 +97,7 @@ const Profile = ({navigation}) => {
               textAlign="center"
               fontWeight="bold"
               textTransform="uppercase"
-              color="red400"
+              color="red"
               letterSpacing={1}
               mt="lg"
               mb="lg"
@@ -105,14 +106,14 @@ const Profile = ({navigation}) => {
             </Text>
           </Div>
         </Div>
-        <Div bg="gray700" p="lg" h={'70%'} roundedTop={35}>
+        <Div bg={dark} p="lg" h={'70%'} roundedTop='xl'>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Button
               mt="xs"
               p="xs"
               bg="transparent"
               borderBottomColor="green500"
-              color="red400"
+              color="red"
               underlayColor="red100"
             >
               My Recipes
@@ -122,7 +123,7 @@ const Profile = ({navigation}) => {
               p="xs"
               bg="transparent"
               borderBottomColor="green500"
-              color="red400"
+              color="red"
               underlayColor="red100"
             >
               Favourites
