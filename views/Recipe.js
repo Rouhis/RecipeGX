@@ -13,32 +13,13 @@ import {Div} from 'react-native-magnus';
 import {SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 import List from '../components/List';
-import {useForm} from 'react-hook-form';
-import {async} from 'q';
 import {black, dark, gray} from '../utils/Colors';
 
 const Recipe = ({navigation, route}) => {
   console.log(route.params);
   const dropdownComments = React.createRef();
   const dropdownSteps = React.createRef();
-  const {
-    title,
-    description,
-    file_id,
-    filename,
-    time_added: timeAdded,
-  } = route.params;
-  const {handleSubmit} = useForm({
-    defaultValues: {title: '', description: ''},
-    mode: 'onChange',
-  });
-
-  const uploadComment = async () => {
-    const commentData = {
-      file_id: file_id,
-    };
-  };
-
+  const {title, description, filename, time_added: timeAdded} = route.params;
   return (
 
     <ScrollDiv nestedScrollEnabled={true} h={'100%'} bg={black} >
@@ -51,8 +32,7 @@ const Recipe = ({navigation, route}) => {
             bg={black}
             h={'75%'}
             style={{
-              position: 'relative',
-              top: -40,
+              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
             }}
@@ -68,9 +48,8 @@ const Recipe = ({navigation, route}) => {
               mb="lg"
             >
               {title}
-
             </Text>
-            <ScrollDiv h={260}>
+            <ScrollDiv>
               <Div >
                 <Text fontSize="lg" textAlign="center" color="white">
                   {description}
@@ -78,8 +57,8 @@ const Recipe = ({navigation, route}) => {
               </Div>
             </ScrollDiv>
 
-            <Div bg={dark} p="lg" h={60} w={'100%'} rounded={35}>
-              <Div row flexWrap="wrap" justifyContent="space-evenly">
+            <Div flex={1} bg={dark} p="lg" h={60} w={'100%'} rounded={35}>
+              <Div flex={1} flexDir={'row'} flexWrap="wrap" justifyContent="space-evenly" >
                 <Button
                   mt="xs"
                   p="xs"
@@ -140,7 +119,7 @@ const Recipe = ({navigation, route}) => {
               </Div>
             </Dropdown>
           </Div>
-
+      
     </ScrollDiv>
   );
 };
@@ -150,8 +129,6 @@ Recipe.propTypes = {
   route: PropTypes.object,
 };
 
-Recipe.propTypes = {
-  route: PropTypes.object,
-};
 
 export default Recipe;
+
