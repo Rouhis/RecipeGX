@@ -1,12 +1,5 @@
 import * as React from 'react';
-import {
-  Alert,
-  FlatList,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert} from 'react-native';
 import {uploadsUrl} from '../utils/Variables';
 import {
   Text,
@@ -17,32 +10,20 @@ import {
   Input,
 } from 'react-native-magnus';
 import {Div} from 'react-native-magnus';
-import {SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
 import List from '../components/ListComment';
-import {useForm} from 'react-hook-form';
-import {async} from 'q';
-import {black, dark, gray} from '../utils/Colors';
+import {black, dark} from '../utils/Colors';
 import {useComment} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Recipe = ({navigation, route}) => {
+const Recipe = ({route}) => {
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
-  const {
-    title,
-    description,
-    file_id,
-    filename,
-    time_added: timeAdded,
-  } = route.params;
+  const {title, description, file_id, filename} = route.params;
   const fileId = file_id;
-  const {handleSubmit} = useForm({
-    defaultValues: {title: '', description: ''},
-    mode: 'onChange',
-  });
-  const {getCommentsByFileId, postComment} = useComment();
+
+  const {postComment} = useComment();
 
   const uploadComment = async () => {
     try {
@@ -53,6 +34,7 @@ const Recipe = ({navigation, route}) => {
       } else {
         await postComment(fileId, data, token);
         alert('Comment posted!');
+        setText('');
       }
     } catch (error) {
       console.error('uploadComment ', error);
