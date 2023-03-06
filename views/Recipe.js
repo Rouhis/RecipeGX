@@ -15,6 +15,7 @@ import List from '../components/ListComment';
 import {black, dark} from '../utils/Colors';
 import {useComment} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MainContext} from '../contexts/MainContext';
 
 const Recipe = ({route}) => {
   const dropdownComments = React.createRef();
@@ -22,6 +23,7 @@ const Recipe = ({route}) => {
   const dropdownSteps = React.createRef();
   const {title, description, file_id, filename} = route.params;
   const fileId = file_id;
+  const {update, setUpdate} = React.useContext(MainContext);
 
   const {postComment} = useComment();
 
@@ -35,6 +37,7 @@ const Recipe = ({route}) => {
         await postComment(fileId, data, token);
         alert('Comment posted!');
         setText('');
+        setUpdate(!update);
       }
     } catch (error) {
       console.error('uploadComment ', error);

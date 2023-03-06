@@ -71,35 +71,7 @@ const Profile = ({navigation}) => {
           {user.username}
         </Text>
 
-        <Div p="lg" h={'10%'}>
-          <Div row flexWrap="wrap" justifyContent="space-evenly">
-            <Text
-              fontSize="md"
-              textAlign="center"
-              fontWeight="bold"
-              textTransform="uppercase"
-              color="red400"
-              letterSpacing={1}
-              mt="lg"
-              mb="lg"
-            >
-              Recipes
-            </Text>
-            <Text
-              fontSize="md"
-              textAlign="center"
-              fontWeight="bold"
-              textTransform="uppercase"
-              color="red400"
-              letterSpacing={1}
-              mt="lg"
-              mb="lg"
-            >
-              Favourites
-            </Text>
-          </Div>
-        </Div>
-        <Div bg="gray700" p="lg" h={'70%'} roundedTop={35}>
+        <Div bg="gray700" p="lg" h={'80%'} roundedTop={35}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
             <Button
               mt="xs"

@@ -38,6 +38,7 @@ const useAuthentication = () => {
 const useComment = (fileId) => {
   console.log('UseComment kutsuttu');
   const [commentArray, setCommentArray] = useState([]);
+  const {update} = useContext(MainContext);
   const postComment = async (fileId, data, token) => {
     const options = {
       method: 'post',
@@ -65,7 +66,7 @@ const useComment = (fileId) => {
 
   useEffect(() => {
     getCommentsByFileId(fileId);
-  }, []);
+  }, [update]);
 
   return {commentArray, postComment, getCommentsByFileId};
 };
@@ -114,7 +115,8 @@ const useUser = () => {
 
 const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
-  const {user} = useContext(MainContext);
+  const {update, user} = useContext(MainContext);
+
 
   const loadMedia = async () => {
     try {
@@ -131,6 +133,7 @@ const useMedia = (myFilesOnly) => {
       );
 
       setMediaArray(media);
+
     } catch (error) {
       console.error('List, loadMedia', error);
     }
@@ -154,7 +157,7 @@ const useMedia = (myFilesOnly) => {
 
   useEffect(() => {
     loadMedia();
-  }, []);
+  }, [update]);
 
   return {mediaArray, postMedia};
 };
