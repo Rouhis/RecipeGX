@@ -6,7 +6,6 @@ import {black} from '../utils/Colors';
 
 const List = ({navigation, fileId}) => {
   const {commentArray} = useComment(fileId);
-  console.log('Listan saama numero ' + fileId);
   return (
     <FlatList
       style={styles.center}

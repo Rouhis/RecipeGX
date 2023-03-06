@@ -36,7 +36,6 @@ const useAuthentication = () => {
 };
 
 const useComment = (fileId) => {
-  console.log('UseComment kutsuttu');
   const [commentArray, setCommentArray] = useState([]);
   const {update} = useContext(MainContext);
   const postComment = async (fileId, data, token) => {

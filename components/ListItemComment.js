@@ -13,7 +13,6 @@ const ListItem = ({singleMedia, navigation}) => {
     try {
       const token = await AsyncStorage.getItem('userToken');
       const user = await getUserById(item.user_id, token);
-      console.log('Kommentin lisääjä   ' + user.username);
       setCommentUser(user);
     } catch (error) {
       console.error('Username fetch failed', error.message);
