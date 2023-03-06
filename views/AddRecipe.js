@@ -85,7 +85,7 @@ const AddRecipe = ({navigation, route}) => {
     console.log('form data', formData);
     try {
       // const token = await AsyncStorage.getItem('userToken');
-      const token = tempToken;
+      const token = await AsyncStorage.getItem('userToken');
       const result = await postMedia(formData, token);
 
       const appTag = {
@@ -100,12 +100,7 @@ const AddRecipe = ({navigation, route}) => {
           text: 'OK',
           onPress: () => {
             console.log('OK Pressed');
-            // update 'update' state in context
-            // setUpdate(!update);
-            // reset form
-            // reset();
-            // TODO: navigate to home
-            //     navigation.navigate('Home');
+            setUpdate(!update);
           },
         },
       ]);

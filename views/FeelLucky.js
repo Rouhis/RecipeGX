@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View} from 'react-native';
-import {Button, Div, Text} from 'react-native-magnus';
+import {Button, Div} from 'react-native-magnus';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/ApiHooks';
 
