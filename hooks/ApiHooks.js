@@ -35,7 +35,9 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
-const useComment = () => {
+const useComment = (fileId) => {
+  console.log('UseComment kutsuttu');
+  const [commentArray, setCommentArray] = useState([]);
   const postComment = async (fileId, data, token) => {
     const options = {
       method: 'post',
@@ -54,13 +56,18 @@ const useComment = () => {
 
   const getCommentsByFileId = async (fileId) => {
     try {
-      return await doFetch(baseUrl + 'comments/file/' + fileId);
+      const comment = await doFetch(baseUrl + 'comments/file/' + fileId);
+      setCommentArray(comment);
     } catch (error) {
       throw new Error('getComments error, ' + error.message);
     }
   };
 
-  return {postComment, getCommentsByFileId};
+  useEffect(() => {
+    getCommentsByFileId(fileId);
+  }, []);
+
+  return {commentArray, postComment, getCommentsByFileId};
 };
 
 // https://media.mw.metropolia.fi/wbma/docs/#api-User
@@ -91,7 +98,18 @@ const useUser = () => {
       throw new Error('postUser: ' + error.message);
     }
   };
-  return {getUserByToken, postUser};
+
+  const getUserById = async (id, token) => {
+    try {
+      return await doFetch(baseUrl + 'users/' + id, {
+        headers: {'x-access-token': token},
+      });
+    } catch (error) {
+      throw new Error('getUserById, ' + error.message);
+    }
+  };
+
+  return {getUserByToken, postUser, getUserById};
 };
 
 const useMedia = (myFilesOnly) => {
@@ -140,7 +158,6 @@ const useMedia = (myFilesOnly) => {
 
   return {mediaArray, postMedia};
 };
-
 
 const useTag = () => {
   const getFilesByTag = async (tag) => {

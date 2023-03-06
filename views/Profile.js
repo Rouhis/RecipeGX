@@ -1,19 +1,16 @@
 import {useContext, useEffect, useState} from 'react';
-import {Alert, SafeAreaView, StyleSheet} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {Avatar, Button, Div, Fab, Icon, Text} from 'react-native-magnus';
-import {useTag, useUser} from '../hooks/ApiHooks';
+import {useTag} from '../hooks/ApiHooks';
 import {uploadsUrl} from '../utils/Variables';
 import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
 
-
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
-  const {setIsLoggedIn, user, setUser} = useContext(MainContext);
-  const {getUserByToken} = useUser();
-
+  const {setIsLoggedIn, user} = useContext(MainContext);
 
   const [avatar, setAvatar] = useState('');
 
@@ -57,7 +54,6 @@ const Profile = ({navigation}) => {
           size={100}
           bg="green800"
           shadow={1}
-          //source={require('../assets/nalle.jpg')}
           source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />

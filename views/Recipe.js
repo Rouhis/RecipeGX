@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {Alert, FlatList, ScrollView, TextInput, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {uploadsUrl} from '../utils/Variables';
 import {
   Text,
@@ -12,7 +19,7 @@ import {
 import {Div} from 'react-native-magnus';
 import {SafeAreaView} from 'react-native';
 import PropTypes from 'prop-types';
-import List from '../components/List';
+import List from '../components/ListComment';
 import {useForm} from 'react-hook-form';
 import {async} from 'q';
 import {black, dark, gray} from '../utils/Colors';
@@ -20,7 +27,6 @@ import {useComment} from '../hooks/ApiHooks';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Recipe = ({navigation, route}) => {
-  console.log(route.params);
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
@@ -38,15 +44,6 @@ const Recipe = ({navigation, route}) => {
   });
   const {getCommentsByFileId, postComment} = useComment();
 
-  const getComments = async () => {
-    try {
-      const commentsData = await getCommentsByFileId(fileId);
-      const commentsSize = Object.keys(commentsData).length;
-    } catch (error) {
-      console.error('getComments ', error);
-    }
-  };
-
   const uploadComment = async () => {
     try {
       const token = await AsyncStorage.getItem('userToken');
@@ -55,6 +52,7 @@ const Recipe = ({navigation, route}) => {
         Alert.alert('Comment', 'Comment cannot be empty!');
       } else {
         await postComment(fileId, data, token);
+        alert('Comment posted!');
       }
     } catch (error) {
       console.error('uploadComment ', error);
@@ -98,10 +96,6 @@ const Recipe = ({navigation, route}) => {
             <Text fontSize="lg" textAlign="center" color="white">
               {description}
             </Text>
-            <Button title="submit" onPress={getComments}>
-              Hae kommentit test
-            </Button>
-            <Button onPress={uploadComment}>Comment teste</Button>
           </Div>
         </ScrollDiv>
 
@@ -153,28 +147,22 @@ const Recipe = ({navigation, route}) => {
             </Text>
           }
         >
-          <Div>
-            <ScrollView
-              nestedScrollEnabled={true}
-              style={{height: '98%'}}
-            ></ScrollView>
+          <Div style={{height: '98%'}}>
+            <List fileId={fileId}></List>
             <Input
               placeholder="Write your comment"
               p={10}
               focusBorderColor="red400"
-              style={{position: 'absolute', bottom: 20}}
+              style={{position: 'absolute', bottom: 25}}
               onChangeText={(text) => setText(text)}
               value={text}
+              suffix={<Button onPress={uploadComment}>Send</Button>}
             ></Input>
           </Div>
         </Dropdown>
       </Div>
     </ScrollDiv>
   );
-};
-
-Recipe.propTypes = {
-  route: PropTypes.object,
 };
 
 Recipe.propTypes = {
