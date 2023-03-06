@@ -8,6 +8,7 @@ import {
   Button,
   Dropdown,
   Input,
+  Icon,
 } from 'react-native-magnus';
 import {Div} from 'react-native-magnus';
 import {SafeAreaView} from 'react-native';
@@ -16,14 +17,21 @@ import List from '../components/List';
 import {useForm} from 'react-hook-form';
 import {async} from 'q';
 import {black, dark, gray} from '../utils/Colors';
-import {useComment} from '../hooks/ApiHooks';
+import {useComment, useFavourite, useUser} from '../hooks/ApiHooks';
+import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icons from 'react-native-vector-icons';
 
 const Recipe = ({navigation, route}) => {
   console.log(route.params);
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
+  const [userLikesIt, setUserLikesIt] = React.useState(false);
+  const {getUserById} = useUser();
+  const {user} = React.useContext(MainContext);
+  const {getFavouritesByFileId, postFavourite, deleteFavourite} =
+    useFavourite();
   const {
     title,
     description,
@@ -31,6 +39,7 @@ const Recipe = ({navigation, route}) => {
     filename,
     time_added: timeAdded,
   } = route.params;
+  const [likes, setLikes] = React.useState([]);
   const fileId = file_id;
   const {handleSubmit} = useForm({
     defaultValues: {title: '', description: ''},
@@ -38,12 +47,58 @@ const Recipe = ({navigation, route}) => {
   });
   const {getCommentsByFileId, postComment} = useComment();
 
+  const getLikes = async () => {
+    const likess = await getFavouritesByFileId(fileId);
+    console.log(
+      'likes',
+      likess,
+      'user',
+      user,
+      'useridd',
+      likess.user,
+      'useriddd',
+      user.user_id
+    );
+    setLikes(likes);
+    // check if the current user id is included in the 'likes' array and
+    // set the 'userLikesIt' state accordingly
+    for (const like of likes) {
+      if (like.user_id === user.user_id) {
+        setUserLikesIt(true);
+        break;
+      }
+    }
+  };
+
   const getComments = async () => {
     try {
       const commentsData = await getCommentsByFileId(fileId);
       const commentsSize = Object.keys(commentsData).length;
     } catch (error) {
       console.error('getComments ', error);
+    }
+  };
+
+  const likeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await postFavourite(fileId, token);
+      setUserLikesIt(true);
+      getLikes();
+    } catch (error) {
+      // note: you cannot like same file multiple times
+      // console.log(error);
+    }
+  };
+  const dislikeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await deleteFavourite(fileId, token);
+      setUserLikesIt(false);
+      getLikes();
+    } catch (error) {
+      // note: you cannot like same file multiple times
+      console.log(error);
     }
   };
 
@@ -93,6 +148,16 @@ const Recipe = ({navigation, route}) => {
         >
           {title}
         </Text>
+        {userLikesIt ? (
+          <Button name="heart" color="red" onPress={dislikeFile}>
+            Dont Like
+          </Button>
+        ) : (
+          <Button name="heart" onPress={likeFile}>
+            Like?
+          </Button>
+        )}
+        <Text color="red">Total likes: {likes.length}</Text>
         <ScrollDiv h={260}>
           <Div>
             <Text fontSize="lg" textAlign="center" color="white">

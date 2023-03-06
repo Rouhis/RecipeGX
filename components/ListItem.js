@@ -2,9 +2,9 @@ import * as React from 'react';
 
 import {View, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
-import {Text, Image, Div} from 'react-native-magnus';
+import {Text, Image, Div, Icon} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
-import { brightred, dark, palecolor, red } from '../utils/Colors';
+import {brightred, dark, palecolor, red} from '../utils/Colors';
 
 const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
@@ -32,23 +32,18 @@ const ListItem = ({singleMedia, navigation}) => {
             source={{uri: uploadsUrl + item.thumbnails?.w160}}
           ></Image>
 
-          <Text
-          fontSize={20}
-          color='red'
-          >{item.title}</Text>
-          <Text
-          color="gray100"
-          >{item.description}</Text>
+          <Text fontSize={20} color="red">
+            {item.title}
+          </Text>
+          <Text color="gray100">{item.description}</Text>
           <Text>{item.description}</Text>
 
           <Text color="gray100">{item.description}</Text>
-
         </Div>
       </Div>
     </TouchableOpacity>
   );
 };
-
 
 ListItem.propTypes = {
   singleMedia: PropTypes.object,
