@@ -11,7 +11,7 @@ import LottieIcons from '../components/LottieIcons';
 import Register from '../views/Register';
 import AddRecipe from '../views/AddRecipe';
 import Recipe from '../views/Recipe';
-import { black, brightred, red } from '../utils/Colors';
+import {black, brightred, red} from '../utils/Colors';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,8 +28,8 @@ const StackScreen = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Recipe" component={Recipe}/>
-          <Stack.Screen name="AddRecipe" component={AddRecipe}/>
+          <Stack.Screen name="Recipe" component={Recipe} />
+          <Stack.Screen name="AddRecipe" component={AddRecipe} />
         </>
       ) : (
         <>
@@ -44,16 +44,19 @@ const StackScreen = () => {
 const TabScreen = () => {
   return (
     <Tab.Navigator
-
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           return <LottieIcons iconName={route.name} focused={focused} />;
         },
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarItemStyle: {padding: 4, backgroundColor: brightred,borderTopColor: black, borderTopWidth: 2},
+        tabBarItemStyle: {
+          padding: 4,
+          backgroundColor: brightred,
+          borderTopColor: black,
+          borderTopWidth: 2,
+        },
       })}
-
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="FeelLucky" component={FeelLucky} />

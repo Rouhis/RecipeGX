@@ -8,12 +8,10 @@ import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
 
-
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
   const {setIsLoggedIn, user, setUser} = useContext(MainContext);
   const {getUserByToken} = useUser();
-
 
   const [avatar, setAvatar] = useState('');
 
@@ -57,7 +55,7 @@ const Profile = ({navigation}) => {
           size={100}
           bg="green800"
           shadow={1}
-          //source={require('../assets/nalle.jpg')}
+          // source={require('../assets/nalle.jpg')}
           source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
