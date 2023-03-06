@@ -54,7 +54,7 @@ const Profile = ({navigation}) => {
           size={100}
           bg="green800"
           shadow={1}
-          source={{uri: uploadsUrl + avatar}}
+        //  source={{uri: uploadsUrl + avatar}}
         >
           <Icon name="user" color="white" fontFamily="Feather" />
         </Avatar>
