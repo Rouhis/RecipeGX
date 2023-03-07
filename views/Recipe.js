@@ -49,7 +49,7 @@ const Recipe = ({route}) => {
     }
   };
   return (
-    <ScrollDiv nestedScrollEnabled={true} h={'100%'} bg={black}>
+    <ScrollDiv nestedScrollEnabled={true} h={400} bg={black}>
       <Div flex={1} alignItems={'center'} marginTop={10}>
         <Div h={250} w={350}>
           <Image
@@ -61,10 +61,8 @@ const Recipe = ({route}) => {
       </Div>
       <Div
         bg={black}
-        h={'75%'}
         style={{
           position: 'relative',
-          top: -40,
           justifyContent: 'center',
           alignItems: 'center',
         }}
@@ -81,8 +79,8 @@ const Recipe = ({route}) => {
         >
           {title}
         </Text>
-        <ScrollDiv h={260}>
-          <Div>
+        <ScrollDiv>
+          <Div >
             <Text fontSize="lg" textAlign="center" color="white"
             >
               {allData.ingredients}
@@ -90,13 +88,11 @@ const Recipe = ({route}) => {
           </Div>
         </ScrollDiv>
 
-        <Div bg={dark} p="lg" h={60} w={'100%'} rounded={35}>
-          <Div row flexWrap="wrap" justifyContent="space-evenly">
+        <Div flex={1} flexDir='row' justifyContent="space-evenly" bg={dark} p="lg" h={60} w={'90%'} rounded='xl'>
             <Button
               mt="xs"
               p="xs"
               bg="transparent"
-              borderBottomColor="green500"
               color="red"
               underlayColor="red100"
               onPress={() => dropdownSteps.current.open()}
@@ -114,8 +110,8 @@ const Recipe = ({route}) => {
             >
               Comments
             </Button>
-          </Div>
         </Div>
+        
         <Dropdown
           ref={dropdownSteps}
           h={'100%'}
