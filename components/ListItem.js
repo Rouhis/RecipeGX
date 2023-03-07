@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import {Text, Image, Div, Icon} from 'react-native-magnus';
 import {uploadsUrl} from '../utils/Variables';
 import {brightred, dark, palecolor, red} from '../utils/Colors';
-import {brightred, dark, palecolor, red} from '../utils/Colors';
 
 const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;

@@ -52,7 +52,7 @@ const TabScreen = () => {
         tabBarShowLabel: false,
         tabBarItemStyle: {
           padding: 4,
-          backgroundColor: brightred,
+          backgroundColor: 'red',
           borderTopColor: black,
           borderTopWidth: 2,
         },

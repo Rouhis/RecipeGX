@@ -7,11 +7,11 @@ import {MainContext} from '../contexts/MainContext';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/List';
+import { black, dark } from '../utils/Colors';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
-  const {setIsLoggedIn, user, setUser} = useContext(MainContext);
-  const {getUserByToken} = useUser();
+  const {setIsLoggedIn, user} = useContext(MainContext);
 
 
   const [avatar, setAvatar] = useState('');
@@ -37,7 +37,7 @@ const Profile = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <Div p={15}></Div>
-      <Div pt="xl">
+      <Div pt="xl" bg={dark}>
         <Button
           position="absolute"
           bg="transparent"
@@ -73,9 +73,9 @@ const Profile = ({navigation}) => {
           {user.username}
         </Text>
 
-        <Div bg="gray700" p="lg" h={'80%'} roundedTop={35}>
+        <Div bg={black} p="lg" h={'80%'} roundedTop={35}>
           <Div row flexWrap="wrap" justifyContent="space-evenly">
-            <Button
+            <Text
               mt="xs"
               p="xs"
               bg="transparent"
@@ -84,50 +84,10 @@ const Profile = ({navigation}) => {
               underlayColor="red100"
             >
               My Recipes
-            </Button>
-            <Button
-              mt="xs"
-              p="xs"
-              bg="transparent"
-              borderBottomColor="green500"
-              color="red400"
-              underlayColor="red100"
-            >
-              Favourites
-            </Button>
+            </Text>
           </Div>
           <List navigation={navigation} myFilesOnly={true}></List>
         </Div>
-        <Fab bg="red600" h={50} w={50}>
-          <Button p="none" bg="transparent" justifyContent="flex-end">
-            <Div rounded="sm" bg="white" p="sm">
-              <Text fontSize="md">Add Recipe</Text>
-            </Div>
-            <Icon
-              name="pluscircleo"
-              color="blue600"
-              h={50}
-              w={50}
-              rounded="circle"
-              ml="md"
-              bg="white"
-            />
-          </Button>
-          <Button p="none" bg="transparent" justifyContent="flex-end">
-            <Div rounded="sm" bg="white" p="sm">
-              <Text fontSize="md">Remove Recipe</Text>
-            </Div>
-            <Icon
-              name="pluscircleo"
-              color="blue600"
-              h={50}
-              w={50}
-              rounded="circle"
-              ml="md"
-              bg="white"
-            />
-          </Button>
-        </Fab>
       </Div>
     </SafeAreaView>
   );

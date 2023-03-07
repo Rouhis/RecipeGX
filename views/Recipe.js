@@ -21,6 +21,9 @@ import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Recipe = ({route}) => {
+  const {title, description, file_id, filename} = route.params;	
+  console.log(description)	
+  const allData = JSON.parse(description)	
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
@@ -29,20 +32,13 @@ const Recipe = ({route}) => {
   const {user} = React.useContext(MainContext);
   const {getFavouritesByFileId, postFavourite, deleteFavourite} =
     useFavourite();
-  const {
-    title,
-    description,
-    file_id,
-    filename,
-    time_added: timeAdded,
-  } = route.params;
   const [likes, setLikes] = React.useState([]);
   const fileId = file_id;
   const {handleSubmit} = useForm({
     defaultValues: {title: '', description: ''},
     mode: 'onChange',
   });
-  const {getCommentsByFileId, postComment} = useComment();
+  const {postComment} = useComment();
 
   const getLikes = async () => {
     const likes = await getFavouritesByFileId(fileId);
@@ -151,24 +147,39 @@ const Recipe = ({route}) => {
         >
           {title}
         </Text>
-        {userLikesIt ? (
-          <Button name="heart" color="red" onPress={dislikeFile}>
-            Dont Like
-          </Button>
-        ) : (
-          <Button name="heart" onPress={likeFile}>
-            Like?
-          </Button>
-        )}
+        
         <Text color="red">Total likes: {likes.length}</Text>
-        <ScrollDiv h={260}>
+        <ScrollDiv >
           <Div>
+            <Text textAlign='center' color='red'>Ingredients</Text>
             <Text fontSize="lg" textAlign="center" color="white">
-              {description}
+              {allData.ingredients}
             </Text>
           </Div>
         </ScrollDiv>
-
+        <Div m={10}>
+        {userLikesIt ? (
+          <Button w={60} h={60} bg={dark} name="heart" color="red" onPress={dislikeFile} Icon>
+             <Icon
+              name="heart"
+              fontFamily="FontAwesome"
+              color="red"
+             fontSize={30}
+             
+            />
+          </Button>
+        ) : (
+          <Button w={60} h={60} bg={dark} name="heart" onPress={likeFile}>
+             <Icon
+              name="heart"
+              fontFamily="Feather"
+              color="white"
+              fontSize={30}
+              
+            />
+          </Button>
+        )}
+        </Div>
         <Div flex={1} flexDir='row' justifyContent="space-evenly" bg={dark} p="lg" h={60} w={'90%'} rounded='xl'>
             <Button
               mt="xs"
@@ -200,7 +211,7 @@ const Recipe = ({route}) => {
           roundedTop={35}
           title={
             <Text mx="lg" color="red400" textAlign="center">
-              {allData.steps}
+              Instructions
             </Text>
           }
         >
