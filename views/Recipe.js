@@ -48,14 +48,14 @@ const Recipe = ({navigation, route}) => {
   const {getCommentsByFileId, postComment} = useComment();
 
   const getLikes = async () => {
-    const likess = await getFavouritesByFileId(fileId);
+    const likes = await getFavouritesByFileId(fileId);
     console.log(
-      'likes',
-      likess,
+      'likess',
+      likes.user_id,
       'user',
       user,
       'useridd',
-      likess.user,
+      likes.user_id,
       'useriddd',
       user.user_id
     );
@@ -63,7 +63,8 @@ const Recipe = ({navigation, route}) => {
     // check if the current user id is included in the 'likes' array and
     // set the 'userLikesIt' state accordingly
     for (const like of likes) {
-      if (like.user_id === user.user_id) {
+      console.log(like.user_id == user.user_id);
+      if (like.user_id == user.user_id) {
         setUserLikesIt(true);
         break;
       }
@@ -115,6 +116,10 @@ const Recipe = ({navigation, route}) => {
       console.error('uploadComment ', error);
     }
   };
+
+  React.useEffect(() => {
+    getLikes();
+  }, []);
   return (
     <ScrollDiv nestedScrollEnabled={true} h={'100%'} bg={black}>
       <Div flex={1} alignItems={'center'} marginTop={10}>
