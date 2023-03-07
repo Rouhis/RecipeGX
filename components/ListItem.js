@@ -8,6 +8,7 @@ import {brightred, dark, palecolor, red} from '../utils/Colors';
 
 const ListItem = ({singleMedia, navigation}) => {
   const item = singleMedia;
+  const recipeData = JSON.parse(singleMedia.description);
   return (
     <TouchableOpacity
       onPress={() => {
@@ -35,7 +36,7 @@ const ListItem = ({singleMedia, navigation}) => {
           <Text fontSize={20} color="red">
             {item.title}
           </Text>
-          <Text color="gray100">{item.description}</Text>
+          <Text color="gray100">{recipeData.description}</Text>
         </Div>
       </Div>
     </TouchableOpacity>
