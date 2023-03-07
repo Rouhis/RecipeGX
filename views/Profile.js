@@ -10,7 +10,9 @@ import List from '../components/List';
 
 const Profile = ({navigation}) => {
   const {getFilesByTag} = useTag();
-  const {setIsLoggedIn, user} = useContext(MainContext);
+  const {setIsLoggedIn, user, setUser} = useContext(MainContext);
+  const {getUserByToken} = useUser();
+
 
   const [avatar, setAvatar] = useState('');
 

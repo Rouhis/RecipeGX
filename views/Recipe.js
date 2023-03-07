@@ -8,29 +8,97 @@ import {
   Button,
   Dropdown,
   Input,
+  Icon,
 } from 'react-native-magnus';
 import {Div} from 'react-native-magnus';
 import PropTypes from 'prop-types';
-import List from '../components/ListComment';
-import {black, dark} from '../utils/Colors';
-import {useComment} from '../hooks/ApiHooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import List from '../components/List';
+import {useForm} from 'react-hook-form';
+import {async} from 'q';
+import {black, dark, gray} from '../utils/Colors';
+import {useComment, useFavourite, useUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Recipe = ({route}) => {
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
-  const {title, description, file_id, filename} = route.params;
-  console.log(description)
-  const allData = JSON.parse(description)
-  console.log(allData.steps)
-  console.log(allData)
+  const [userLikesIt, setUserLikesIt] = React.useState(false);
+  const {getUserById} = useUser();
+  const {user} = React.useContext(MainContext);
+  const {getFavouritesByFileId, postFavourite, deleteFavourite} =
+    useFavourite();
+  const {
+    title,
+    description,
+    file_id,
+    filename,
+    time_added: timeAdded,
+  } = route.params;
+  const [likes, setLikes] = React.useState([]);
   const fileId = file_id;
-  const {update, setUpdate} = React.useContext(MainContext);
-  
-  const {postComment} = useComment();
+  const {handleSubmit} = useForm({
+    defaultValues: {title: '', description: ''},
+    mode: 'onChange',
+  });
+  const {getCommentsByFileId, postComment} = useComment();
+
+  const getLikes = async () => {
+    const likes = await getFavouritesByFileId(fileId);
+    console.log(
+      'likess',
+      likes.user_id,
+      'user',
+      user,
+      'useridd',
+      likes.user_id,
+      'useriddd',
+      user.user_id
+    );
+    setLikes(likes);
+    // check if the current user id is included in the 'likes' array and
+    // set the 'userLikesIt' state accordingly
+    for (const like of likes) {
+      console.log(like.user_id == user.user_id);
+      if (like.user_id == user.user_id) {
+        setUserLikesIt(true);
+        break;
+      }
+    }
+  };
+
+  const getComments = async () => {
+    try {
+      const commentsData = await getCommentsByFileId(fileId);
+      const commentsSize = Object.keys(commentsData).length;
+    } catch (error) {
+      console.error('getComments ', error);
+    }
+  };
+
+  const likeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await postFavourite(fileId, token);
+      setUserLikesIt(true);
+      getLikes();
+    } catch (error) {
+      // note: you cannot like same file multiple times
+      // console.log(error);
+    }
+  };
+  const dislikeFile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('userToken');
+      await deleteFavourite(fileId, token);
+      setUserLikesIt(false);
+      getLikes();
+    } catch (error) {
+      // note: you cannot like same file multiple times
+      console.log(error);
+    }
+  };
 
   const uploadComment = async () => {
     try {
@@ -48,6 +116,10 @@ const Recipe = ({route}) => {
       console.error('uploadComment ', error);
     }
   };
+
+  React.useEffect(() => {
+    getLikes();
+  }, []);
   return (
     <ScrollDiv nestedScrollEnabled={true} h={400} bg={black}>
       <Div flex={1} alignItems={'center'} marginTop={10}>
@@ -79,11 +151,20 @@ const Recipe = ({route}) => {
         >
           {title}
         </Text>
-        <ScrollDiv>
-          <Div >
-            <Text fontSize="lg" textAlign="center" color="white"
-            >
-              {allData.ingredients}
+        {userLikesIt ? (
+          <Button name="heart" color="red" onPress={dislikeFile}>
+            Dont Like
+          </Button>
+        ) : (
+          <Button name="heart" onPress={likeFile}>
+            Like?
+          </Button>
+        )}
+        <Text color="red">Total likes: {likes.length}</Text>
+        <ScrollDiv h={260}>
+          <Div>
+            <Text fontSize="lg" textAlign="center" color="white">
+              {description}
             </Text>
           </Div>
         </ScrollDiv>

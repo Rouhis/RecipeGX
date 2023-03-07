@@ -62,6 +62,7 @@ module.exports = {
       {name: 'Link', linkAttribute: 'to'},
     ],
   },
+
   settings: {
     react: {
       createClass: 'createReactClass', // Regex for Component Factory to use,

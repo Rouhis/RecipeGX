@@ -6,6 +6,10 @@ import List from '../components/List';
 import PropTypes from 'prop-types';
 import {dark, red} from '../utils/Colors';
 const Home = ({navigation}) => {
+<<<<<<< HEAD
+=======
+  console.log('perekreklreklreklrpeklrpe');
+>>>>>>> LeoNew
   return (
     <>
       <SafeAreaView style={styles.container}>
