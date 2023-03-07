@@ -12,18 +12,19 @@ import {
 } from 'react-native-magnus';
 import {Div} from 'react-native-magnus';
 import PropTypes from 'prop-types';
-import List from '../components/List';
+
 import {useForm} from 'react-hook-form';
 import {async} from 'q';
 import {black, dark, gray} from '../utils/Colors';
 import {useComment, useFavourite, useUser} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import List from '../components/ListComment';
 const Recipe = ({route}) => {
   const {title, description, file_id, filename} = route.params;	
   console.log(description)	
-  const allData = JSON.parse(description)	
+  const allData = JSON.parse(description);
+  const {update, setUpdate} = React.useContext(MainContext);
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
@@ -115,6 +116,7 @@ const Recipe = ({route}) => {
 
   React.useEffect(() => {
     getLikes();
+    getComments();
   }, []);
   return (
     <ScrollDiv nestedScrollEnabled={true} h={400} bg={black}>
