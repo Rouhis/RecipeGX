@@ -12,33 +12,25 @@ import {
 } from 'react-native-magnus';
 import {Div} from 'react-native-magnus';
 import PropTypes from 'prop-types';
-
-import {useForm} from 'react-hook-form';
-import {async} from 'q';
-import {black, dark, gray} from '../utils/Colors';
-import {useComment, useFavourite, useUser} from '../hooks/ApiHooks';
+import {black, dark} from '../utils/Colors';
+import {useComment, useFavourite} from '../hooks/ApiHooks';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import List from '../components/ListComment';
 const Recipe = ({route}) => {
-  const {title, description, file_id, filename} = route.params;	
-  console.log(description)	
+  const {title, description, file_id, filename} = route.params;
   const allData = JSON.parse(description);
   const {update, setUpdate} = React.useContext(MainContext);
   const dropdownComments = React.createRef();
   const [text, setText] = React.useState('');
   const dropdownSteps = React.createRef();
   const [userLikesIt, setUserLikesIt] = React.useState(false);
-  const {getUserById} = useUser();
   const {user} = React.useContext(MainContext);
   const {getFavouritesByFileId, postFavourite, deleteFavourite} =
     useFavourite();
   const [likes, setLikes] = React.useState([]);
   const fileId = file_id;
-  const {handleSubmit} = useForm({
-    defaultValues: {title: '', description: ''},
-    mode: 'onChange',
-  });
+
   const {postComment} = useComment();
 
   const getLikes = async () => {
@@ -62,15 +54,6 @@ const Recipe = ({route}) => {
         setUserLikesIt(true);
         break;
       }
-    }
-  };
-
-  const getComments = async () => {
-    try {
-      const commentsData = await getCommentsByFileId(fileId);
-      const commentsSize = Object.keys(commentsData).length;
-    } catch (error) {
-      console.error('getComments ', error);
     }
   };
 
@@ -116,7 +99,6 @@ const Recipe = ({route}) => {
 
   React.useEffect(() => {
     getLikes();
-    getComments();
   }, []);
   return (
     <ScrollDiv nestedScrollEnabled={true} h={400} bg={black}>
@@ -149,63 +131,80 @@ const Recipe = ({route}) => {
         >
           {title}
         </Text>
-        
+
         <Text color="red">Total likes: {likes.length}</Text>
-        <ScrollDiv >
+        <ScrollDiv>
           <Div>
-            <Text textAlign='center' color='red'>Ingredients</Text>
+            <Text textAlign="center" color="red">
+              Ingredients
+            </Text>
             <Text fontSize="lg" textAlign="center" color="white">
               {allData.ingredients}
             </Text>
           </Div>
         </ScrollDiv>
         <Div m={10}>
-        {userLikesIt ? (
-          <Button w={60} h={60} bg={dark} name="heart" color="red" onPress={dislikeFile} Icon>
-             <Icon
-              name="heart"
-              fontFamily="FontAwesome"
-              color="red"
-             fontSize={30}
-             
-            />
-          </Button>
-        ) : (
-          <Button w={60} h={60} bg={dark} name="heart" onPress={likeFile}>
-             <Icon
-              name="heart"
-              fontFamily="Feather"
-              color="white"
-              fontSize={30}
-              
-            />
-          </Button>
-        )}
-        </Div>
-        <Div flex={1} flexDir='row' justifyContent="space-evenly" bg={dark} p="lg" h={60} w={'90%'} rounded='xl'>
+          {userLikesIt ? (
             <Button
-              mt="xs"
-              p="xs"
-              bg="transparent"
+              w={60}
+              h={60}
+              bg={dark}
+              name="heart"
               color="red"
-              underlayColor="red100"
-              onPress={() => dropdownSteps.current.open()}
+              onPress={dislikeFile}
+              Icon
             >
-              Steps
+              <Icon
+                name="heart"
+                fontFamily="FontAwesome"
+                color="red"
+                fontSize={30}
+              />
             </Button>
-            <Button
-              mt="xs"
-              p="xs"
-              bg="transparent"
-              borderBottomColor="green500"
-              color="red"
-              underlayColor="red100"
-              onPress={() => dropdownComments.current.open()}
-            >
-              Comments
+          ) : (
+            <Button w={60} h={60} bg={dark} name="heart" onPress={likeFile}>
+              <Icon
+                name="heart"
+                fontFamily="Feather"
+                color="white"
+                fontSize={30}
+              />
             </Button>
+          )}
         </Div>
-        
+        <Div
+          flex={1}
+          flexDir="row"
+          justifyContent="space-evenly"
+          bg={dark}
+          p="lg"
+          h={60}
+          w={'90%'}
+          rounded="xl"
+        >
+          <Button
+            mt="xs"
+            p="xs"
+            bg="transparent"
+            color="red"
+            underlayColor="red100"
+            onPress={() => dropdownSteps.current.open()}
+          >
+            Steps
+          </Button>
+          <Button
+            mt="xs"
+            p="xs"
+            bg="transparent"
+            borderBottomColor="green500"
+            color="red"
+            underlayColor="red100"
+            onPress={() => dropdownComments.current.open()}
+          >
+            Comments
+          </Button>
+        </Div>
+
         <Dropdown
           ref={dropdownSteps}
           h={'100%'}

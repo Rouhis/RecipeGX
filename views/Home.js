@@ -4,7 +4,7 @@ import {StyleSheet, SafeAreaView} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 import List from '../components/List';
 import PropTypes from 'prop-types';
-import {dark, red} from '../utils/Colors';
+import {dark} from '../utils/Colors';
 const Home = ({navigation}) => {
   return (
     <>

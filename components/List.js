@@ -1,5 +1,5 @@
-import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
-import {useMedia, useTag} from '../hooks/ApiHooks';
+import {FlatList, StyleSheet} from 'react-native';
+import {useMedia} from '../hooks/ApiHooks';
 import ListItem from './ListItem';
 import PropTypes from 'prop-types';
 import {black} from '../utils/Colors';

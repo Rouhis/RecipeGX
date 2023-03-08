@@ -3,16 +3,23 @@ import {View} from 'react-native';
 import {Button, Div} from 'react-native-magnus';
 import PropTypes from 'prop-types';
 import {useMedia} from '../hooks/ApiHooks';
-import { black, red } from '../utils/Colors';
+import {black, red} from '../utils/Colors';
 
 const FeelLucky = ({navigation}) => {
   const {mediaArray} = useMedia();
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: black}}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: black,
+      }}
+    >
       <Div>
         <Button
-        bg={red}
+          bg={red}
           onPress={() => {
             navigation.navigate(
               'Recipe',

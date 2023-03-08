@@ -35,36 +35,36 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
-const useComment = (fileId) => {	
-  const [commentArray, setCommentArray] = useState([]);	
-  const {update} = useContext(MainContext);	
-  const postComment = async (fileId, data, token) => {	
-    const options = {	
-      method: 'post',	
-      headers: {	
-        'x-access-token': token,	
-        'Content-Type': 'application/json',	
-      },	
-      body: JSON.stringify({file_id: fileId, comment: data}),	
-    };	
-    try {	
-      return await doFetch(baseUrl + 'comments', options);	
-    } catch (error) {	
-      throw new Error('postComment: ' + error.message);	
-    }	
-  };	
-  const getCommentsByFileId = async (fileId) => {	
-    try {	
-      const comment = await doFetch(baseUrl + 'comments/file/' + fileId);	
-      setCommentArray(comment);	
-    } catch (error) {	
-      throw new Error('getComments error, ' + error.message);	
-    }	
-  };	
-  useEffect(() => {	
-    getCommentsByFileId(fileId);	
-  }, [update]);	
-  return {commentArray, postComment, getCommentsByFileId};	
+const useComment = (fileId) => {
+  const [commentArray, setCommentArray] = useState([]);
+  const {update} = useContext(MainContext);
+  const postComment = async (fileId, data, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({file_id: fileId, comment: data}),
+    };
+    try {
+      return await doFetch(baseUrl + 'comments', options);
+    } catch (error) {
+      throw new Error('postComment: ' + error.message);
+    }
+  };
+  const getCommentsByFileId = async (fileId) => {
+    try {
+      const comment = await doFetch(baseUrl + 'comments/file/' + fileId);
+      setCommentArray(comment);
+    } catch (error) {
+      throw new Error('getComments error, ' + error.message);
+    }
+  };
+  useEffect(() => {
+    getCommentsByFileId(fileId);
+  }, [update]);
+  return {commentArray, postComment, getCommentsByFileId};
 };
 
 // https://media.mw.metropolia.fi/wbma/docs/#api-User
@@ -113,10 +113,6 @@ const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update, user} = useContext(MainContext);
 
-
-
-  
-
   const loadMedia = async () => {
     try {
       const response = await fetch(baseUrl + 'tags/' + appId);
@@ -132,7 +128,6 @@ const useMedia = (myFilesOnly) => {
       );
 
       setMediaArray(media);
-
     } catch (error) {
       console.error('List, loadMedia', error);
     }
