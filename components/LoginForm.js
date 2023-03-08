@@ -1,3 +1,4 @@
+/* Importing the necessary components and libraries for the LoginForm component. */
 import React, {useContext} from 'react';
 import {MainContext} from '../contexts/MainContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -8,6 +9,9 @@ import {Text, Input, Button} from 'react-native-magnus';
 
 import {useNavigation} from '@react-navigation/core';
 
+/*
+ * It's a function that returns a form that uses the useForm hook to handle form state and validation
+ */
 const LoginForm = () => {
   const {setIsLoggedIn, setUser} = useContext(MainContext);
   const {postLogin} = useAuthentication();
@@ -20,6 +24,13 @@ const LoginForm = () => {
     defaultValues: {username: '', password: ''},
   });
 
+  /**
+   * The logIn function is an async function that takes in loginData as a parameter. It then logs the
+   * loginData to the console. It then tries to post the loginData to the server. If it succeeds, it
+   * sets the userToken in AsyncStorage and sets the user and isLoggedIn state variables. If it fails,
+   * it logs the error to the console.
+   * @param loginData - {
+   */
   const logIn = async (loginData) => {
     console.log('Login button pressed', loginData);
     try {
@@ -34,6 +45,8 @@ const LoginForm = () => {
     }
   };
 
+  /* The above code is a React Native component that is using the react-hook-form library to validate
+  the input fields. */
   return (
     <View>
       <Text

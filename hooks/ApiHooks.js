@@ -14,11 +14,14 @@ const doFetch = async (url, options) => {
   return json;
 };
 
+/**
+ * It sends a POST request to the login endpoint with the user credentials and returns the result as
+ * json
+ * @return {postLogin}
+ */
 const useAuthentication = () => {
   const postLogin = async (userCredentials) => {
-    // user credentials format: {username: 'someUsername', password: 'somePassword'}
     const options = {
-      // TODO: add method, headers and body for sending json data with POST
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +29,6 @@ const useAuthentication = () => {
       body: JSON.stringify(userCredentials),
     };
     try {
-      // TODO: use fetch to send request to login endpoint and return the result as json, handle errors with try/catch and response.ok
       return await doFetch(baseUrl + 'login', options);
     } catch (error) {
       throw new Error('postLogin: ' + error.message);
@@ -35,42 +37,44 @@ const useAuthentication = () => {
   return {postLogin};
 };
 
-const useComment = (fileId) => {	
-  const [commentArray, setCommentArray] = useState([]);	
-  const {update} = useContext(MainContext);	
-  const postComment = async (fileId, data, token) => {	
-    const options = {	
-      method: 'post',	
-      headers: {	
-        'x-access-token': token,	
-        'Content-Type': 'application/json',	
-      },	
-      body: JSON.stringify({file_id: fileId, comment: data}),	
-    };	
-    try {	
-      return await doFetch(baseUrl + 'comments', options);	
-    } catch (error) {	
-      throw new Error('postComment: ' + error.message);	
-    }	
-  };	
-  const getCommentsByFileId = async (fileId) => {	
-    try {	
-      const comment = await doFetch(baseUrl + 'comments/file/' + fileId);	
-      setCommentArray(comment);	
-    } catch (error) {	
-      throw new Error('getComments error, ' + error.message);	
-    }	
-  };	
-  useEffect(() => {	
-    getCommentsByFileId(fileId);	
-  }, [update]);	
-  return {commentArray, postComment, getCommentsByFileId};	
+const useComment = (fileId) => {
+  const [commentArray, setCommentArray] = useState([]);
+  const {update} = useContext(MainContext);
+  const postComment = async (fileId, data, token) => {
+    const options = {
+      method: 'post',
+      headers: {
+        'x-access-token': token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({file_id: fileId, comment: data}),
+    };
+    try {
+      return await doFetch(baseUrl + 'comments', options);
+    } catch (error) {
+      throw new Error('postComment: ' + error.message);
+    }
+  };
+  const getCommentsByFileId = async (fileId) => {
+    try {
+      const comment = await doFetch(baseUrl + 'comments/file/' + fileId);
+      setCommentArray(comment);
+    } catch (error) {
+      throw new Error('getComments error, ' + error.message);
+    }
+  };
+  useEffect(() => {
+    getCommentsByFileId(fileId);
+  }, [update]);
+  return {commentArray, postComment, getCommentsByFileId};
 };
 
-// https://media.mw.metropolia.fi/wbma/docs/#api-User
+/*
+ * It's a function that returns an object with three functions
+ * @returns An object with three properties: getUserByToken, postUser, and getUserById.
+ */
 const useUser = () => {
   const getUserByToken = async (token) => {
-    // call https://media.mw.metropolia.fi/wbma/docs/#api-User-CheckUserName
     const options = {
       method: 'GET',
       headers: {'x-access-token': token},
@@ -113,10 +117,6 @@ const useMedia = (myFilesOnly) => {
   const [mediaArray, setMediaArray] = useState([]);
   const {update, user} = useContext(MainContext);
 
-
-
-  
-
   const loadMedia = async () => {
     try {
       const response = await fetch(baseUrl + 'tags/' + appId);
@@ -132,7 +132,6 @@ const useMedia = (myFilesOnly) => {
       );
 
       setMediaArray(media);
-
     } catch (error) {
       console.error('List, loadMedia', error);
     }
@@ -161,6 +160,10 @@ const useMedia = (myFilesOnly) => {
   return {mediaArray, postMedia};
 };
 
+/*
+ * It's a function that returns an object with four functions
+ * @return An object with 4 functions.
+ */
 const useFavourite = () => {
   const postFavourite = async (fileId, token) => {
     const options = {

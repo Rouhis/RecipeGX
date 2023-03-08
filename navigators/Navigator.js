@@ -16,6 +16,10 @@ import {black, brightred} from '../utils/Colors';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+/*
+ * If the user is logged in, show the tabs screen, otherwise show the login screen
+ * @returns The StackScreen is being returned.
+ */
 const StackScreen = () => {
   const {isLoggedIn} = useContext(MainContext);
   return (

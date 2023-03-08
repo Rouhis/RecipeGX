@@ -1,3 +1,4 @@
+/* Importing the necessary components from the libraries. */
 import React from 'react';
 import {useUser} from '../hooks/ApiHooks';
 import {View} from 'react-native';
@@ -5,6 +6,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {Button, Text, Input} from 'react-native-magnus';
 
 const RegisterForm = () => {
+  /* Destructuring the useUser and useForm hooks. */
   const {postUser} = useUser();
   const {
     control,
@@ -14,6 +16,13 @@ const RegisterForm = () => {
     defaultValues: {username: '', password: ''},
   });
 
+  /**
+   * It takes in a registerData object, logs it to the console, then attempts to post the user to the
+   * database. If it succeeds, it logs the result to the console. If it fails, it logs the error to the
+   * console.
+   * @param registerData - {
+   * @author Leo
+   */
   const register = async (registerData) => {
     console.log('Registering: ', registerData);
     try {
@@ -25,6 +34,7 @@ const RegisterForm = () => {
     }
   };
 
+  /* A function that returns a view. */
   return (
     <View>
       <Text
