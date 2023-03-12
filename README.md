@@ -7,8 +7,13 @@ Features
 RecipeGX allows users to:
 
 -Create an account
+
 -Log in to their account
+
 -Post recipes
+
 -Like recipes posted by other users
+
 -Comment on recipes posted by other users
+
 -Search for random recipe
