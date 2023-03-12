@@ -1,6 +1,6 @@
 RecipeGX - Mobile Recipe Sharing Application
 
-RecipeGX is a mobile application developed by Leo Gong, Eetu Rouhiainen, and Axel Kähkönen as a project at Metropolia university of applied sciences. It is built using Expo and React Native with Magnus UI framework. RecipeGX is a recipe sharing application that allows users to share, like, and comment on recipes posted by other users.
+RecipeGX is a mobile web application developed by Leo Gong, Eetu Rouhiainen, and Axel Kähkönen as a project at Metropolia university of applied sciences. It is built using Expo and React Native with Magnus UI framework. RecipeGX is a recipe sharing application that allows users to share, like, and comment on recipes posted by other users.
 
 Features
 
