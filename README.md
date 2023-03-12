@@ -17,3 +17,5 @@ RecipeGX allows users to:
 -Comment on recipes posted by other users
 
 -Search for random recipe
+
+Link to quick demo of the app https://www.youtube.com/watch?v=YprEVurXJgY
